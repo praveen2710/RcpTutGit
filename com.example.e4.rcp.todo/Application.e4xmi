@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="ASCII"?>
+<application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:advanced="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmlns:ui="http://www.eclipse.org/ui/2010/UIModel/application/ui" xmi:id="_oRWf8DqTEeSU78_WTHZThQ" elementId="com.example.e4.rcp.todo.application">
+  <children xsi:type="basic:TrimmedWindow" xmi:id="_tDojMDqTEeSU78_WTHZThQ" elementId="com.example.e4.rcp.todo.trimmedwindow.to-do" label="Main Window" x="100" y="100" width="600" height="400">
+    <children xsi:type="advanced:PerspectiveStack" xmi:id="_FyGHYDqcEeSU78_WTHZThQ" elementId="com.example.e4.rcp.todo.perspectivestack.0">
+      <children xsi:type="advanced:Perspective" xmi:id="_IS2z8DqcEeSU78_WTHZThQ" elementId="com.example.e4.rcp.todo.perspective.to-doPerspective" label="To-Do perspective">
+        <children xsi:type="basic:PartSashContainer" xmi:id="_4qFIQDqbEeSU78_WTHZThQ" elementId="com.example.e4.rcp.todo.partsashcontainer.0" horizontal="true">
+          <children xsi:type="basic:PartStack" xmi:id="_5mRqwDqbEeSU78_WTHZThQ" elementId="com.example.e4.rcp.todo.partstack.0">
+            <children xsi:type="basic:Part" xmi:id="_6CbbQDqbEeSU78_WTHZThQ" elementId="com.example.e4.rcp.todo.part.todooverview" contributionURI="bundleclass://com.example.e4.rcp.todo/com.example.e4.rcp.todo.parts.TodoOverviewpart" label="To-Dos">
+              <menus xsi:type="menu:PopupMenu" xmi:id="_lzXQMDq3EeSU78_WTHZThQ" elementId="com.example.e4.rcp.todo.popupmenu.table" label="Table Menu">
+                <children xsi:type="menu:HandledMenuItem" xmi:id="_mmYBgDq3EeSU78_WTHZThQ" elementId="com.example.e4.rcp.todo.handledmenuitem.remove" label="Remove" command="_GRlL0Dq0EeSU78_WTHZThQ"/>
+              </menus>
+              <toolbar xmi:id="_1cmHgDq6EeSU78_WTHZThQ" elementId="com.example.e4.rcp.todo.toolbar.1">
+                <children xsi:type="menu:DirectToolItem" xmi:id="_2JMu0Dq6EeSU78_WTHZThQ" elementId="com.example.e4.rcp.todo.directtoolitem.text" label="SaveaAllText" contributionURI="bundleclass://com.example.e4.rcp.todo/com.example.e4.rcp.todo.handlers.NewTodoHandler"/>
+              </toolbar>
+            </children>
+          </children>
+          <children xsi:type="basic:PartSashContainer" xmi:id="_8B-4MDqbEeSU78_WTHZThQ" elementId="com.example.e4.rcp.todo.partsashcontainer.1">
+            <children xsi:type="basic:PartStack" xmi:id="_9SuHUDqbEeSU78_WTHZThQ" elementId="com.example.e4.rcp.todo.partstack.1">
+              <children xsi:type="basic:Part" xmi:id="_9kX4ADqbEeSU78_WTHZThQ" elementId="com.example.e4.rcp.todo.part.tododetails" contributionURI="bundleclass://com.example.e4.rcp.todo/com.example.e4.rcp.todo.parts.TodoDetailsPart" label="Details"/>
+            </children>
+            <children xsi:type="basic:PartStack" xmi:id="_CJHOgDqcEeSU78_WTHZThQ" elementId="com.example.e4.rcp.todo.partstack.2">
+              <children xsi:type="basic:Part" xmi:id="_Cb0vIDqcEeSU78_WTHZThQ" elementId="com.example.e4.rcp.todo.part.playground" contributionURI="bundleclass://com.example.e4.rcp.todo/com.example.e4.rcp.todo.parts.PlayGroundPart" label="Playground"/>
+            </children>
+          </children>
+        </children>
+      </children>
+    </children>
+    <mainMenu xmi:id="_g7WqUDq1EeSU78_WTHZThQ" elementId=" org.eclipse.ui.main.menu">
+      <children xsi:type="menu:MenuSeparator" xmi:id="_2tI7oDq1EeSU78_WTHZThQ" elementId="com.example.e4.rcp.todo.menuseparator.0"/>
+      <children xsi:type="menu:Menu" xmi:id="_lSMHsDq1EeSU78_WTHZThQ" elementId="org.eclipse.ui.file.menu" label="file">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_tGULUDq1EeSU78_WTHZThQ" elementId="com.example.e4.rcp.todo.handledmenuitem.save" label="Save" command="_sfcqgDqzEeSU78_WTHZThQ"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_3I_xMDq1EeSU78_WTHZThQ" elementId="com.example.e4.rcp.todo.handledmenuitem.exit" label="Exit" command="_15vasDqzEeSU78_WTHZThQ"/>
+      </children>
+      <children xsi:type="menu:Menu" xmi:id="_oJz1EDq1EeSU78_WTHZThQ" elementId="org.eclipse.ui.edit.menu" label="Edit">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_9Pkt4Dq1EeSU78_WTHZThQ" elementId="com.example.e4.rcp.todo.handledmenuitem.newTodo" label="New Todo" command="_DYzn4Dq0EeSU78_WTHZThQ"/>
+        <children xsi:type="menu:MenuSeparator" xmi:id="_B4INYDq2EeSU78_WTHZThQ" elementId="com.example.e4.rcp.todo.menuseparator.1"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_CQseYDq2EeSU78_WTHZThQ" elementId="com.example.e4.rcp.todo.handledmenuitem.removeTodo" label="Remove Todo" command="_GRlL0Dq0EeSU78_WTHZThQ"/>
+        <children xsi:type="menu:MenuSeparator" xmi:id="_En5mUDq2EeSU78_WTHZThQ" elementId="com.example.e4.rcp.todo.menuseparator.2"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_FKxC0Dq2EeSU78_WTHZThQ" elementId="com.example.e4.rcp.todo.handledmenuitem.testing" label="Testing" command="_Jj54MDq0EeSU78_WTHZThQ">
+          <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_Ju4wcDrFEeSYHvxKuiP73A" coreExpressionId="com.example.e4.rcp.todo.definitiontest"/>
+          <parameters xmi:id="_VdjeYDrCEeSYHvxKuiP73A" elementId="menuinputparameter" name="com.example.e4.rcp.todo.commandparameter.input" value="Praveen"/>
+        </children>
+      </children>
+    </mainMenu>
+    <trimBars xmi:id="_VKoY0Dq2EeSU78_WTHZThQ" elementId="com.example.e4.rcp.todo.trimbar.0">
+      <children xsi:type="menu:ToolBar" xmi:id="_XVyo0Dq2EeSU78_WTHZThQ" elementId="com.example.e4.rcp.todo.toolbar.0">
+        <children xsi:type="menu:HandledToolItem" xmi:id="_YulnwDq2EeSU78_WTHZThQ" elementId="com.example.e4.rcp.todo.handledtoolitem.save" label="Save" command="_sfcqgDqzEeSU78_WTHZThQ"/>
+      </children>
+      <children xsi:type="menu:ToolControl" xmi:id="_djeukDrAEeSYHvxKuiP73A" elementId="com.example.e4.rcp.todo.toolcontrol.0" contributionURI="bundleclass://com.example.e4.rcp.todo/com.example.e4.rcp.todo.parts.to_do.SearchToolItem"/>
+    </trimBars>
+    <trimBars xmi:id="_EqGMsEZREeSwcb_Y_co4_A" elementId="com.example.e4.rcp.todo.trimbar.1" side="Bottom">
+      <children xsi:type="menu:ToolBar" xmi:id="_HdEqoEZREeSwcb_Y_co4_A" elementId="com.example.e4.rcp.todo.toolbar.2">
+        <children xsi:type="menu:HandledToolItem" xmi:id="_JTpKsEZREeSwcb_Y_co4_A" elementId="com.example.e4.rcp.todo.handledtoolitem.delete" label="Delete" command="_kEqWIEZREeSwcb_Y_co4_A"/>
+      </children>
+      <children xsi:type="menu:ToolControl" xmi:id="_QDiKIEZREeSwcb_Y_co4_A" elementId="com.example.e4.rcp.todo.toolcontrol.1"/>
+    </trimBars>
+  </children>
+  <handlers xmi:id="_yl7rIDq0EeSU78_WTHZThQ" elementId="com.example.e4.rcp.todo.handle.saveall" contributionURI="bundleclass://com.example.e4.rcp.todo/com.example.e4.rcp.todo.handlers.SaveAllHandler" command="_sfcqgDqzEeSU78_WTHZThQ"/>
+  <handlers xmi:id="_D-mnIDq1EeSU78_WTHZThQ" elementId="com.example.e4.rcp.todo.handler.exit" contributionURI="bundleclass://com.example.e4.rcp.todo/com.example.e4.rcp.todo.handlers.ExitHandler" command="_15vasDqzEeSU78_WTHZThQ"/>
+  <handlers xmi:id="_Iro-ADq1EeSU78_WTHZThQ" elementId="com.example.e4.rcp.todo.handler.new" contributionURI="bundleclass://com.example.e4.rcp.todo/com.example.e4.rcp.todo.handlers.NewTodoHandler" command="_DYzn4Dq0EeSU78_WTHZThQ"/>
+  <handlers xmi:id="_Ph65UDq1EeSU78_WTHZThQ" elementId="com.example.e4.rcp.todo.handler.remove" contributionURI="bundleclass://com.example.e4.rcp.todo/com.example.e4.rcp.todo.handlers.RemoveTodoHandler" command="_GRlL0Dq0EeSU78_WTHZThQ"/>
+  <handlers xmi:id="_S8VKsDq1EeSU78_WTHZThQ" elementId="com.example.e4.rcp.todo.handler.test" contributionURI="bundleclass://com.example.e4.rcp.todo/com.example.e4.rcp.todo.handlers.TestHandler" command="_Jj54MDq0EeSU78_WTHZThQ"/>
+  <handlers xmi:id="_riOT4EZREeSwcb_Y_co4_A" elementId="com.example.e4.rcp.todo.handler.delete" contributionURI="bundleclass://com.example.e4.rcp.todo/com.example.e4.rcp.todo.handlers.DeleteHandler" command="_kEqWIEZREeSwcb_Y_co4_A"/>
+  <commands xmi:id="_sfcqgDqzEeSU78_WTHZThQ" elementId="org.eclipse.ui.file.saveAll" commandName="Save">
+    <parameters xmi:id="_0kLV8DqzEeSU78_WTHZThQ" elementId="com.example.e4.rcp.todo.commandparameter.0" name="Command Parameter 0"/>
+  </commands>
+  <commands xmi:id="_15vasDqzEeSU78_WTHZThQ" elementId="org.eclipse.ui.file.exit" commandName="Exit">
+    <parameters xmi:id="_39y9IDqzEeSU78_WTHZThQ" elementId="com.example.e4.rcp.todo.commandparameter.1" name="Command Parameter 0"/>
+  </commands>
+  <commands xmi:id="_DYzn4Dq0EeSU78_WTHZThQ" elementId="com.example.e4.rcp.todo.command.new" commandName="New Todo">
+    <parameters xmi:id="_F8DnwDq0EeSU78_WTHZThQ" elementId="com.example.e4.rcp.todo.commandparameter.2" name="Command Parameter 0"/>
+  </commands>
+  <commands xmi:id="_GRlL0Dq0EeSU78_WTHZThQ" elementId="com.example.e4.rcp.todo.command.remove" commandName="Remove Todo">
+    <parameters xmi:id="_IJqHwDq0EeSU78_WTHZThQ" elementId="com.example.e4.rcp.todo.commandparameter.3" name="Command Parameter 0"/>
+  </commands>
+  <commands xmi:id="_Jj54MDq0EeSU78_WTHZThQ" elementId="com.example.e4.rcp.todo.command.test" commandName="For testing">
+    <parameters xmi:id="_dwNGgDrBEeSYHvxKuiP73A" elementId="com.example.e4.rcp.todo.commandparameter.input" name="Input"/>
+  </commands>
+  <commands xmi:id="_kEqWIEZREeSwcb_Y_co4_A" elementId="com.example.e4.rcp.todo.command.delete" commandName="Delete">
+    <parameters xmi:id="_nacmMEZREeSwcb_Y_co4_A" elementId="com.example.e4.rcp.todo.commandparameter.4" name="Command Parameter 0"/>
+  </commands>
+  <addons xmi:id="_oRWf8TqTEeSU78_WTHZThQ" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
+  <addons xmi:id="_oRWf8jqTEeSU78_WTHZThQ" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
+  <addons xmi:id="_oRWf8zqTEeSU78_WTHZThQ" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>
+  <addons xmi:id="_oRWf9DqTEeSU78_WTHZThQ" elementId="org.eclipse.e4.ui.workbench.commands.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.CommandProcessingAddon"/>
+  <addons xmi:id="_oRWf9TqTEeSU78_WTHZThQ" elementId="org.eclipse.e4.ui.workbench.contexts.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.ContextProcessingAddon"/>
+  <addons xmi:id="_oRWf9jqTEeSU78_WTHZThQ" elementId="org.eclipse.e4.ui.workbench.bindings.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.swt/org.eclipse.e4.ui.workbench.swt.util.BindingProcessingAddon"/>
+  <addons xmi:id="_oRWf9zqTEeSU78_WTHZThQ" elementId="org.eclipse.e4.ui.workbench.handler.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.HandlerProcessingAddon"/>
+</application:Application>

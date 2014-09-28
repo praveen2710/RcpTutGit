@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/hibernate"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="com.example.e4.rcp.todo"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Users/PB033954/RCPtut/eclipse/plugins/org.eclipse.jface_3.10.0.v20140604-0740.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PB033954/Paras/mysql-connector-java-5.1.32/mysql-connector-java-5.1.32-bin.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PB033954/Paras/hibernate-release-4.3.6.Final/lib/osgi/hibernate-osgi-4.3.6.Final.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PB033954/Paras/hibernate-release-4.3.6.Final/lib/osgi/org.osgi.compendium-4.3.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PB033954/Paras/hibernate-release-4.3.6.Final/lib/osgi/org.osgi.core-4.3.1.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
