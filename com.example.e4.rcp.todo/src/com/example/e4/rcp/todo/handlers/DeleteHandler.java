@@ -10,6 +10,8 @@ import com.example.e4.rcp.tables.ContactDetails;
 import com.example.e4.rcp.tables.Geneder;
 import com.example.e4.rcp.tables.HibernateUtil;
 import com.example.e4.rcp.tables.Status;
+import com.example.e4.rcp.tables.UserDetails;
+import com.example.e4.rcp.tables.hibernateDB;
 
 public class DeleteHandler {
 	private static SessionFactory sessionFactory;
@@ -22,13 +24,21 @@ public class DeleteHandler {
 	    cd.setName("ASD");
 	    cd.setStatus(Status.Married);
 	    cd.setGender(Geneder.MALE);
+	    
+	    UserDetails us = new UserDetails();
+	    us.setUserName("asd");
+	    us.setAge(14);
+	 
+	    hibernateDB hdb = new hibernateDB();
+	    hdb.setUserId(1);
+	    hdb.setUserName("asd");
 	    Configuration config = new Configuration();
 		config.configure();
 		StandardServiceRegistryBuilder ssrb =new StandardServiceRegistryBuilder().applySettings(config.getProperties());
 		sessionFactory = config.buildSessionFactory(ssrb.build());
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
-		session.save(cd);
+		session.save(hdb);
 		session.getTransaction().commit();
 		sessionFactory.close();
 	  }
