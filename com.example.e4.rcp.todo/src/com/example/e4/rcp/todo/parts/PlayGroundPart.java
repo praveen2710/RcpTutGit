@@ -54,6 +54,6 @@ public class PlayGroundPart {
  
  @Focus
  public void onFocus() {
-   text.setFocus();
+//   text.setFocus();
  }
 }

@@ -20,6 +20,7 @@
             </children>
             <children xsi:type="basic:PartStack" xmi:id="_CJHOgDqcEeSU78_WTHZThQ" elementId="com.example.e4.rcp.todo.partstack.2">
               <children xsi:type="basic:Part" xmi:id="_Cb0vIDqcEeSU78_WTHZThQ" elementId="com.example.e4.rcp.todo.part.playground" contributionURI="bundleclass://com.example.e4.rcp.todo/com.example.e4.rcp.todo.parts.PlayGroundPart" label="Playground"/>
+              <children xsi:type="basic:Part" xmi:id="_VozL4EtnEeSVCfFKo5ft8A" elementId="com.example.e4.rcp.todo.part.SearchBar" contributionURI="bundleclass://com.example.e4.rcp.todo/com.example.e4.rcp.todo.parts.SearchBarViewPart" label="SearchBar"/>
             </children>
           </children>
         </children>

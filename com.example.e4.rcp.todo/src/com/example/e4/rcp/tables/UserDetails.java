@@ -28,6 +28,17 @@ public class UserDetails /*implements PropertyChangeListener */{
 	public void person(){
 	}
 	
+	public UserDetails(){
+		
+	}
+	
+	//this is temp remove it assap
+	public UserDetails(String name,String gender,int age){
+		this.userName = name;
+		this.gender = gender;
+		this.age   = age;
+	}
+	
 	public void addPropertyChangeListener(String propertyName,PropertyChangeListener listener){
 		propertyChangeSupport.addPropertyChangeListener(propertyName,listener);
 	}
