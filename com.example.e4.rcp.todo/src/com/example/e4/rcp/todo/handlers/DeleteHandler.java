@@ -8,7 +8,6 @@ import org.hibernate.cfg.Configuration;
 
 import com.example.e4.rcp.tables.ContactDetails;
 import com.example.e4.rcp.tables.Geneder;
-import com.example.e4.rcp.tables.HibernateUtil;
 import com.example.e4.rcp.tables.Status;
 import com.example.e4.rcp.tables.UserDetails;
 import com.example.e4.rcp.tables.hibernateDB;

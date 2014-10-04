@@ -11,14 +11,14 @@ import com.example.e4.rcp.tables.hibernateDB;
 public class StoreInDatabase {
 	private static SessionFactory sessionFactory;
 	
-	public void writeToDatabase(hibernateDB user){
+	public void writeToDatabase(UserDetails details){
 		Configuration config = new Configuration();
 		config.configure();
 		StandardServiceRegistryBuilder ssrb =new StandardServiceRegistryBuilder().applySettings(config.getProperties());
 		sessionFactory = config.buildSessionFactory(ssrb.build());
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
-		session.save(user);
+		session.save(details);
 		session.getTransaction().commit();
 		sessionFactory.close();
 	}

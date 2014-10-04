@@ -49,10 +49,9 @@
   --> 
   <property name="show_sql">true</property> 
  <!--  Drop and re-create the database schema on startup 
-  --> 
-  <!--
+  -->  
   <property name="hbm2ddl.auto">create</property> 
-  -->
-  <mapping class="com.example.e4.rcp.tables.hibernateDB" /> 
+ 
+  <mapping class="com.example.e4.rcp.tables.UserDetails" /> 
   </session-factory>
  </hibernate-configuration>

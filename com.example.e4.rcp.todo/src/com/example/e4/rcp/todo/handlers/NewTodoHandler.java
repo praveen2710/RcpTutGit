@@ -6,5 +6,13 @@ public class NewTodoHandler {
 	@Execute
 	  public void execute() {
 	    System.out.println((this.getClass().getSimpleName() + " called"));
+//	    try {
+//	        HandlerUtil.getActiveWorkbenchWindowChecked(event).
+//	          getActivePage().showView("myplugin.mycustomviewID");
+//	      } catch (PartInitException e) {
+//	        e.printStackTrace();
+//	      }
+//	      return null;
+//	    }
 	  }
 }

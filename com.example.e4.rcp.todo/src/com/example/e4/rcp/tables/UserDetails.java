@@ -5,20 +5,24 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 
 @Entity
 @Table(name="User_Details")
-public class UserDetails implements PropertyChangeListener {
-	@Id
+public class UserDetails /*implements PropertyChangeListener */{
+	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	private int userId;
 	private String userName;
 	private String gender;
 	private int age;
-	private Address address;
-	
+//	private boolean married;
+//	private Address address;
+	@Transient
 	private PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
 	
 	public void person(){
@@ -60,25 +64,36 @@ public class UserDetails implements PropertyChangeListener {
 		propertyChangeSupport.firePropertyChange("age",this.age,this.age = age);
 	}
 	
-	public void setUserId(int Id) {
-		propertyChangeSupport.firePropertyChange("Id",this.userId,this.userId = Id);
-	}
+//	/**
+//	 * @return the married
+//	 */
+//	public boolean isMarried() {
+//		return married;
+//	}
+//
+//	/**
+//	 * @param married the married to set
+//	 */
+//	public void setMarried(boolean martialStatus) {
+//		propertyChangeSupport.firePropertyChange("Mstatus",this.married,this.married = martialStatus);
+//	}
+
 	
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		address.addPropertyChangeListener("country", this);
-		propertyChangeSupport.firePropertyChange("address", this.address,this.address = address);
-		this.address = address;
-	}
-
-	@Override
-	public void propertyChange(PropertyChangeEvent event) {
-		propertyChangeSupport.firePropertyChange("address",null,address);
-		
-	}
+//	public Address getAddress() {
+//		return address;
+//	}
+//
+//	public void setAddress(Address address) {
+//		address.addPropertyChangeListener("country", this);
+//		propertyChangeSupport.firePropertyChange("address", this.address,this.address = address);
+//		this.address = address;
+//	}
+//
+//	@Override
+//	public void propertyChange(PropertyChangeEvent event) {
+//		propertyChangeSupport.firePropertyChange("address",null,address);
+//		
+//	}
 	
 	@Override
 	public String toString(){

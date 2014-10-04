@@ -15,6 +15,7 @@ import javax.inject.Inject;
 
 
 
+
 import org.eclipse.core.databinding.AggregateValidationStatus;
 import org.eclipse.core.databinding.Binding;
 import org.eclipse.core.databinding.DataBindingContext;
@@ -47,7 +48,8 @@ import org.eclipse.swt.widgets.Text;
 
 import com.example.e4.rcp.tables.UserDetails;
 import com.example.e4.rcp.validators.StringLongerThanTwo;
-import com.example.sampleData;
+import com.example.StoreInDatabase;
+
 
 public class TodoOverviewpart{
 	public static final String ID="com.example.e4.rcp.todo.parts.todoView";
@@ -65,9 +67,9 @@ public class TodoOverviewpart{
 	public TodoOverviewpart(Composite parent){
 		System.out.println("Woh! this is To Do View");
 		System.out.println(parent.getLayout().getClass());
-//		
-//		details = new UserDetails();
-//		
+		
+		details = new UserDetails();
+		
 		GridLayout layout = new GridLayout(2,false);
 		layout.marginRight = 5;
 		parent.setLayout(layout);
@@ -100,7 +102,7 @@ public class TodoOverviewpart{
 //		Button button1 = new Button(parent, SWT.PUSH);
 //		button1.setText("Write To Model");
 //		button1.addSelectionListener(new SelectionAdapter() {
-//
+//			
 //			@Override
 //			public void widgetSelected(SelectionEvent e) {
 //				System.out.println("UserName"+details.getUserName());
@@ -138,20 +140,22 @@ public class TodoOverviewpart{
 //		input = new WritableList(detailList,UserDetails.class);
 //		viewer.setInput(input);
 //		
+		final StoreInDatabase sd = new StoreInDatabase();
 		Button add = new Button(parent, SWT.PUSH);
 		add.setText("add");
-//		add.addSelectionListener(new SelectionAdapter() {
-//
-//			/* (non-Javadoc)
-//			 * @see org.eclipse.swt.events.SelectionAdapter#widgetSelected(org.eclipse.swt.events.SelectionEvent)
-//			 */
-//			@Override
-//			public void widgetSelected(SelectionEvent e) {
-//				addUser();
-//			}
-//			
-//		});
-//		
+		add.addSelectionListener(new SelectionAdapter() {
+
+			/* (non-Javadoc)
+			 * @see org.eclipse.swt.events.SelectionAdapter#widgetSelected(org.eclipse.swt.events.SelectionEvent)
+			 */
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				System.out.println(details.getUserName()+details.getGender()+details.getAge());
+				sd.writeToDatabase(details);
+			}
+			
+		});
+		
 		Button delete = new Button(parent, SWT.PUSH);
 //		delete.setLayoutData(new GridData(horizontalAlignment, verticalAlignment, grabExcessHorizontalSpace, grabExcessVerticalSpace));
 		delete.setText("delete");
@@ -167,24 +171,37 @@ public class TodoOverviewpart{
 //			
 //		});
 //		
-//		bindValues();
-//	}
+		bindValues();
+	}
 //
 //
-//	private void bindValues() {
-//		DataBindingContext ctx = new DataBindingContext();
-//		IObservableValue widgetValue = WidgetProperties.text(SWT.Modify)
-//				.observe(userName);
-//		IObservableValue modelValue = BeanProperties.value(UserDetails.class,"userName").observe(details);
-//		ctx.bindValue(widgetValue, modelValue);
+	private void bindValues() {
+		DataBindingContext ctx = new DataBindingContext();
+		IObservableValue widgetValue = WidgetProperties.text(SWT.Modify)
+				.observe(userName);
+		IObservableValue modelValue = BeanProperties.value(UserDetails.class,"userName").observe(details);
+		ctx.bindValue(widgetValue, modelValue);
 //		
 //		UpdateValueStrategy update = new UpdateValueStrategy();
 //		update.setAfterConvertValidator(new StringLongerThanTwo());
 //		ctx.bindValue(widgetValue, modelValue,update,null);
 //		
-//		widgetValue = WidgetProperties.text(SWT.Modify).observe(ageText); // the swt to be monitored
-//		modelValue = BeanProperties.value(UserDetails.class,"age").observe(details);
-//		
+		widgetValue = WidgetProperties.text(SWT.Modify).observe(ageText); // the swt to be monitored
+		modelValue = BeanProperties.value(UserDetails.class,"age").observe(details);
+		ctx.bindValue(widgetValue, modelValue);
+		
+//		widgetValue = WidgetProperties.selection().observe(marriedButton);
+//		modelValue = BeanProperties.value(UserDetails.class,"married").observe(details);
+//		ctx.bindValue(widgetValue, modelValue);
+		
+		widgetValue = WidgetProperties.selection().observe(genderCombo);
+		modelValue = BeanProperties.value(UserDetails.class,"gender").observe(details);
+		ctx.bindValue(widgetValue, modelValue);
+		
+//		widgetValue = WidgetProperties.text(SWT.Modify).observe(countryText);
+//		modelValue = BeanProperties.value(UserDetails.class,"address.country").observe(details);
+//		ctx.bindValue(widgetValue, modelValue);
+//				
 //		IValidator intValidator = new IValidator() {
 //			
 //			@Override
@@ -201,7 +218,7 @@ public class TodoOverviewpart{
 //		
 //		UpdateValueStrategy strategy = new UpdateValueStrategy();
 //		strategy.setBeforeSetValidator(intValidator);
-//	
+		
 //		Binding bindValue = ctx.bindValue(widgetValue, modelValue,strategy,null);
 //		
 //		ControlDecorationSupport.create(bindValue, SWT.TOP|SWT.LEFT);
@@ -218,18 +235,4 @@ public class TodoOverviewpart{
 //		ctx.bindValue(errorObservable,new AggregateValidationStatus(ctx.getBindings(),AggregateValidationStatus.MAX_SEVERITY),null,null);
 	}
 	
-	public void addUser(){
-		UserDetails u1 = new UserDetails();
-		u1.setUserId(14);
-		u1.setUserName("ali");
-		input.add(u1);
-	}
-	
-	public void deleteUser(){
-		if(!viewer.getSelection().isEmpty()){
-			IStructuredSelection selection = (IStructuredSelection)viewer.getSelection();
-			UserDetails u1 = (UserDetails) selection.getFirstElement();
-			input.remove(u1);
-		}
-	}
 }
