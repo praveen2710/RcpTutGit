@@ -17,6 +17,8 @@ import com.example.e4.rcp.tables.hibernateDB;
 public class StoreInDatabase {
 	private static SessionFactory sessionFactory;
 	
+
+	
 	public void writeToDatabase(UserDetails details){
 		Configuration config = new Configuration();
 		config.configure();
@@ -55,4 +57,26 @@ public class StoreInDatabase {
 		}
 		return users;
 	}
+
+	public void updateUserName(int userId,String newName){
+		Configuration config = new Configuration();
+		config.configure();
+		StandardServiceRegistryBuilder ssrb =new StandardServiceRegistryBuilder().applySettings(config.getProperties());
+		sessionFactory = config.buildSessionFactory(ssrb.build());
+		Session session = sessionFactory.openSession();
+		Transaction tx = null;
+		try{
+			tx = session.beginTransaction();
+			UserDetails ud = (UserDetails)session.get(UserDetails.class,userId);
+			ud.setUserName(newName);
+			session.update(ud);
+			tx.commit();
+		}catch(HibernateException e){
+			if(tx!=null) tx.rollback();
+			e.printStackTrace();
+		}finally{
+			session.close();
+		}
+	}
 }
+

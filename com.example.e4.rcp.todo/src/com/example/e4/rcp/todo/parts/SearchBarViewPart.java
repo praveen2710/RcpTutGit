@@ -8,6 +8,7 @@ import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
+import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -23,6 +24,7 @@ import org.eclipse.swt.widgets.Text;
 import com.example.StoreInDatabase;
 import com.example.e4.rcp.tables.UserDetails;
 import com.exmaple.e4.tableFunctionality.MyViewComparator;
+import com.exmaple.e4.tableFunctionality.edit.UserNameEditingSupport;
 
 public class SearchBarViewPart {
 	
@@ -52,11 +54,12 @@ public class SearchBarViewPart {
 				viewer.setContentProvider(new ArrayContentProvider());
 				StoreInDatabase sid = new StoreInDatabase();
 				viewer.setInput(sid.listAllUsers());
+//				 getSite().setSelectionProvider(viewer);
+				//Set sorter for the table
+				comparator = new MyViewComparator();
+				viewer.setComparator(comparator);	
 			}
 		});	
-		//Set sorter for the table
-		comparator = new MyViewComparator();
-		viewer.setComparator(comparator);	
 	}
 	private TableViewer createViewer(Composite parent) {
 		viewer = new TableViewer(parent,SWT.MULTI|SWT.H_SCROLL|SWT.V_SCROLL|SWT.FULL_SELECTION|SWT.BORDER);
@@ -68,12 +71,20 @@ public class SearchBarViewPart {
 		return viewer;
 	}
 	
-	private void createColumns(Composite parent, TableViewer viewer2) {
+	private void createColumns(Composite parent, TableViewer viewer) {
 		String[] titles={"name","gender","age"};
 		int[] bounds = {100,100,100,100};
 		
 		TableViewerColumn col = createTableViewerColumn(titles[0],bounds[0],0);
 		col.setLabelProvider(new ColumnLabelProvider(){
+
+			/* (non-Javadoc)
+			 * @see org.eclipse.jface.viewers.ColumnLabelProvider#update(org.eclipse.jface.viewers.ViewerCell)
+			 */
+			@Override
+			public void update(ViewerCell cell) {
+				cell.setText(((UserDetails) cell.getElement()).getUserName());
+			}
 
 			/* (non-Javadoc)
 			 * @see org.eclipse.jface.viewers.ColumnLabelProvider#getText(java.lang.Object)
@@ -85,6 +96,7 @@ public class SearchBarViewPart {
 			}
 			
 		});
+		col.setEditingSupport(new UserNameEditingSupport(viewer));
 		
 		 col = createTableViewerColumn(titles[1],bounds[1],1);
 		col.setLabelProvider(new ColumnLabelProvider(){

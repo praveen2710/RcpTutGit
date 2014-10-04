@@ -33,7 +33,6 @@ import com.example.e4.rcp.tables.hibernateDB;
 
 
 
-
 public class TodoDetailsPart {
 	private Text text;
 	private Text name;
