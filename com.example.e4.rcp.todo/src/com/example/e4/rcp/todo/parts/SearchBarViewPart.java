@@ -5,7 +5,6 @@ package com.example.e4.rcp.todo.parts;
 import javax.annotation.PostConstruct;
 
 import org.eclipse.jface.viewers.ArrayContentProvider;
-import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
@@ -22,18 +21,18 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 
 import com.example.StoreInDatabase;
-import com.example.e4.helperClasses.ModelProvider;
 import com.example.e4.rcp.tables.UserDetails;
+import com.exmaple.e4.tableFunctionality.MyViewComparator;
 
 public class SearchBarViewPart {
 	
+	private MyViewComparator comparator;
 	private TableViewer viewer;
 	
 	@PostConstruct
-	public void createComposite(final Composite parent){
+	public void createComposite(Composite parent){
 		GridLayout layout = new GridLayout(3,false);
 		parent.setLayout(layout);
-		
 		Label searchLabel = new Label(parent,SWT.NONE);
 		searchLabel.setText("Search:");
 		
@@ -42,6 +41,7 @@ public class SearchBarViewPart {
 		
 		final Button searchButton = new Button(parent, SWT.PUSH);
 		searchButton.setText("Search");
+		createViewer(parent);
 		searchButton.addSelectionListener(new SelectionAdapter() {
 
 			/* (non-Javadoc)
@@ -49,26 +49,23 @@ public class SearchBarViewPart {
 			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				createViewer(parent);
+				viewer.setContentProvider(new ArrayContentProvider());
+				StoreInDatabase sid = new StoreInDatabase();
+				viewer.setInput(sid.listAllUsers());
 			}
-			
-		});
-		
-		
-		
+		});	
+		//Set sorter for the table
+		comparator = new MyViewComparator();
+		viewer.setComparator(comparator);	
 	}
-	private void createViewer(Composite parent) {
+	private TableViewer createViewer(Composite parent) {
 		viewer = new TableViewer(parent,SWT.MULTI|SWT.H_SCROLL|SWT.V_SCROLL|SWT.FULL_SELECTION|SWT.BORDER);
 		createColumns(parent,viewer);
 		final Table table = viewer.getTable();
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
-		
-		viewer.setContentProvider(new ArrayContentProvider());
-		StoreInDatabase sid = new StoreInDatabase();
-		viewer.setInput(sid.listAllUsers());
-		
-		viewer.getControl().setLayoutData(new GridData(SWT.FILL,SWT.FILL, false,true,2,1));
+		viewer.getControl().setLayoutData(new GridData(SWT.FILL,SWT.FILL, false,true,3,1));
+		return viewer;
 	}
 	
 	private void createColumns(Composite parent, TableViewer viewer2) {
@@ -118,13 +115,14 @@ public class SearchBarViewPart {
 		});
 		
 	}
-	private TableViewerColumn createTableViewerColumn(String title, int bound,final int colum) {
+	private TableViewerColumn createTableViewerColumn(String title, int bound,final int columnNumber) {
 		final TableViewerColumn viewerColumn = new TableViewerColumn(viewer, SWT.NONE);
 		final TableColumn column = viewerColumn.getColumn();
 		column.setText(title);
 		column.setWidth(bound);
 		column.setResizable(true);
 		column.setMoveable(true);
+		column.addSelectionListener(getSelectionAdapter(column, columnNumber));
 		return viewerColumn;
 	}
 	
@@ -132,6 +130,23 @@ public class SearchBarViewPart {
 		return viewer;
 	}
 	
+	private SelectionAdapter getSelectionAdapter(final TableColumn column,final int index){
+		SelectionAdapter selectionAdapter = new SelectionAdapter() {
+
+			/* (non-Javadoc)
+			 * @see org.eclipse.swt.events.SelectionAdapter#widgetSelected(org.eclipse.swt.events.SelectionEvent)
+			 */
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				comparator.setColumn(index);
+				int dir = comparator.getDirection();
+				viewer.getTable().setSortDirection(dir);
+				viewer.getTable().setSortColumn(column);
+				viewer.refresh();
+			}
+		};
+		return selectionAdapter;
+	}
 
 	public void setFocus(){
 		viewer.getControl().setFocus();
