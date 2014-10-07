@@ -11,6 +11,7 @@ import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
+import com.example.e4.rcp.tables.DatabaseAccess;
 import com.example.e4.rcp.tables.UserDetails;
 import com.example.e4.rcp.tables.hibernateDB;
 
@@ -19,7 +20,7 @@ public class StoreInDatabase {
 	
 
 	
-	public void writeToDatabase(UserDetails details){
+	public void writeToDatabase(DatabaseAccess details){
 		Configuration config = new Configuration();
 		config.configure();
 		StandardServiceRegistryBuilder ssrb =new StandardServiceRegistryBuilder().applySettings(config.getProperties());

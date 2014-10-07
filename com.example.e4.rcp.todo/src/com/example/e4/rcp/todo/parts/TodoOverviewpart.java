@@ -150,7 +150,7 @@ public class TodoOverviewpart{
 			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				System.out.println(details.getUserName()+details.getGender()+details.getAge());
+//				System.out.println(details.getUserName()+details.getGender()+details.getAge());
 				sd.writeToDatabase(details);
 			}
 			
@@ -195,7 +195,7 @@ public class TodoOverviewpart{
 //		ctx.bindValue(widgetValue, modelValue);
 		
 		widgetValue = WidgetProperties.selection().observe(genderCombo);
-		modelValue = BeanProperties.value(UserDetails.class,"gender").observe(details);
+		modelValue = BeanProperties.value(UserDetails.class,"number").observe(details);
 		ctx.bindValue(widgetValue, modelValue);
 		
 //		widgetValue = WidgetProperties.text(SWT.Modify).observe(countryText);

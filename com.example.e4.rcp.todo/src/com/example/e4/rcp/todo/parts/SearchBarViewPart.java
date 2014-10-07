@@ -2,14 +2,24 @@ package com.example.e4.rcp.todo.parts;
 
 
 
-import javax.annotation.PostConstruct;
 
+
+import javax.annotation.PostConstruct;
+import javax.annotation.processing.Filer;
+import javax.inject.Inject;
+
+import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
@@ -20,27 +30,52 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.part.ViewPart;
 
 import com.example.StoreInDatabase;
 import com.example.e4.rcp.tables.UserDetails;
 import com.exmaple.e4.tableFunctionality.MyViewComparator;
+import com.exmaple.e4.tableFunctionality.PersonFilter;
 import com.exmaple.e4.tableFunctionality.edit.UserNameEditingSupport;
 
-public class SearchBarViewPart {
+public class SearchBarViewPart{
 	
 	private MyViewComparator comparator;
 	private TableViewer viewer;
+	private PersonFilter filter;
+	
+	@Inject 
+	private ESelectionService selectionService;
 	
 	@PostConstruct
 	public void createComposite(Composite parent){
+		
 		GridLayout layout = new GridLayout(3,false);
 		parent.setLayout(layout);
 		Label searchLabel = new Label(parent,SWT.NONE);
+		
 		searchLabel.setText("Search:");
-		
+				
 		final Text searchText = new Text(parent,SWT.BORDER|SWT.SEARCH);
-		searchText.setLayoutData(new GridData(SWT.FILL,SWT.FILL,true,false));
+		searchText.setLayoutData(new GridData(GridData.GRAB_HORIZONTAL
+		        | GridData.HORIZONTAL_ALIGN_FILL));
 		
+		searchText.addKeyListener(new KeyAdapter() {
+
+			/* (non-Javadoc)
+			 * @see org.eclipse.swt.events.KeyAdapter#keyReleased(org.eclipse.swt.events.KeyEvent)
+			 */
+			@Override
+			public void keyReleased(KeyEvent e) {
+				System.out.println(searchText.getText());
+				viewer.addFilter(filter);
+				filter.searchStringText(searchText.getText());
+				viewer.refresh();
+			}
+			
+		});
+
+		filter = new PersonFilter();
 		final Button searchButton = new Button(parent, SWT.PUSH);
 		searchButton.setText("Search");
 		createViewer(parent);
@@ -51,20 +86,32 @@ public class SearchBarViewPart {
 			 */
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				viewer.setContentProvider(new ArrayContentProvider());
 				StoreInDatabase sid = new StoreInDatabase();
 				viewer.setInput(sid.listAllUsers());
-//				 getSite().setSelectionProvider(viewer);
+
 				//Set sorter for the table
-				comparator = new MyViewComparator();
-				viewer.setComparator(comparator);	
+//				comparator = new MyViewComparator();
+//				viewer.setComparator(comparator);	
 			}
 		});	
+//		getSite().setSelectionProvider(viewer);
+		
 	}
 	private TableViewer createViewer(Composite parent) {
 		viewer = new TableViewer(parent,SWT.MULTI|SWT.H_SCROLL|SWT.V_SCROLL|SWT.FULL_SELECTION|SWT.BORDER);
 		createColumns(parent,viewer);
 		final Table table = viewer.getTable();
+		viewer.setContentProvider(new ArrayContentProvider());
+		viewer.addSelectionChangedListener(new ISelectionChangedListener() {
+			
+			@Override
+			public void selectionChanged(SelectionChangedEvent event) {
+				IStructuredSelection selection = (IStructuredSelection) event.getSelection();
+			      // set the selection to the service
+			      selectionService.setSelection(
+			          selection.size() == 1 ? selection.getFirstElement() : selection.toArray());				
+			}
+		});
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
 		viewer.getControl().setLayoutData(new GridData(SWT.FILL,SWT.FILL, false,true,3,1));
@@ -107,7 +154,7 @@ public class SearchBarViewPart {
 			@Override
 			public String getText(Object element) {
 				UserDetails ud = (UserDetails) element;
-				return ud.getGender();
+				return ud.getNumber();
 			}
 			
 		});
@@ -163,4 +210,5 @@ public class SearchBarViewPart {
 	public void setFocus(){
 		viewer.getControl().setFocus();
 	}
+
 }

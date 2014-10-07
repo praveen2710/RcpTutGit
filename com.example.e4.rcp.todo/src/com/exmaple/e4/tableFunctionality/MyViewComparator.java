@@ -47,7 +47,7 @@ public class MyViewComparator extends ViewerComparator {
 		case 0:
 			rc = u1.getUserName().compareTo(u2.getUserName());
 		case 1:
-			rc = u1.getGender().compareTo(u2.getGender());
+			rc = u1.getNumber().compareTo(u2.getNumber());
 		// need to check how to do same for integer's
 		default:
 			rc=0;

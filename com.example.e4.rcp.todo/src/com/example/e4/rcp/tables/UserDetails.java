@@ -14,11 +14,11 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name="User_Details")
-public class UserDetails /*implements PropertyChangeListener */{
+public class UserDetails implements  DatabaseAccess/*PropertyChangeListener*/ {
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	private int userId;
 	private String userName;
-	private String gender;
+	private String number;
 	private int age;
 //	private boolean married;
 //	private Address address;
@@ -33,9 +33,9 @@ public class UserDetails /*implements PropertyChangeListener */{
 	}
 	
 	//this is temp remove it assap
-	public UserDetails(String name,String gender,int age){
+	public UserDetails(String name,String number){
 		this.userName = name;
-		this.gender = gender;
+		this.number = number;
 		this.age   = age;
 	}
 	
@@ -63,12 +63,12 @@ public class UserDetails /*implements PropertyChangeListener */{
 		propertyChangeSupport.firePropertyChange("userName",this.userName,this.userName = userName);
 	}
 	
-	public String getGender() {
-		return gender;
+	public String getNumber() {
+		return number;
 	}
 	
-	public void setGender(String gender) {
-		propertyChangeSupport.firePropertyChange("gender",this.gender,this.gender = gender);
+	public void setNumber(String number) {
+		propertyChangeSupport.firePropertyChange("number",this.number,this.number = number);
 	}
 	
 	public void setAge(int age) {
@@ -109,6 +109,11 @@ public class UserDetails /*implements PropertyChangeListener */{
 	@Override
 	public String toString(){
 		return userName;
+	}
+
+	@Override
+	public int getId() {
+		return userId;
 	}
 }
 

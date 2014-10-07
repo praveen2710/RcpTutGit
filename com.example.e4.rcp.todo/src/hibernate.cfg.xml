@@ -52,6 +52,7 @@
   -->  
   <property name="hbm2ddl.auto">update</property> 
  
-  <mapping class="com.example.e4.rcp.tables.UserDetails" /> 
+  <mapping class="com.example.e4.rcp.tables.UserDetails" />
+  <mapping class="com.example.e4.rcp.tables.OrgDetails" />  
   </session-factory>
  </hibernate-configuration>
