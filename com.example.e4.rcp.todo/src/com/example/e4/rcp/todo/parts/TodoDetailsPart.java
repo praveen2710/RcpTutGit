@@ -2,6 +2,7 @@ package com.example.e4.rcp.todo.parts;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 
@@ -17,6 +18,13 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.e4.ui.di.Focus;
 import org.eclipse.jface.databinding.fieldassist.ControlDecorationSupport;
 import org.eclipse.jface.databinding.swt.WidgetProperties;
+import org.eclipse.jface.viewers.ArrayContentProvider;
+import org.eclipse.jface.viewers.ComboViewer;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.ListViewer;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -24,99 +32,75 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 
 import com.example.StoreInDatabase;
+import com.example.e4.rcp.tables.UserDetails;
 import com.example.e4.rcp.tables.hibernateDB;
 
 
 
 public class TodoDetailsPart {
-	private Text text;
-	private Text name;
-	private Text outputData;
-	private TableViewer tableViewer;
+	
+	protected Text comboSelection;
 	
 	@PostConstruct
 	public void createComposite(Composite parent) {
-//	
-//	parent.setLayout(new GridLayout(3,false));
-//		
-//	text = new Text(parent,SWT.BORDER);
-//	text.setMessage("Enter Number");
-//	text.setLayoutData(new GridData(SWT.FILL,SWT.CENTER, true, false, 1, 1));
-//	IValidator validator = new IValidator() {
-//		
-//		@Override
-//		public IStatus validate(Object value) {
-//			if(value instanceof Integer){
-//				if(value.toString().matches(".*\\d.*")){
-//					return ValidationStatus.ok();
-//				}
-//			}
-//			return ValidationStatus.error(value.toString()+"is not a number");
-//		}
-//	};
-//	
-//	UpdateValueStrategy strategy = new UpdateValueStrategy();
-//	strategy.setBeforeSetValidator(validator);
-//	
-//	name = new Text(parent,SWT.BORDER);
-//	name.setMessage("Enter Name");
-//	name.setLayoutData(new GridData(SWT.FILL,SWT.CENTER,true,false,1,1));
-//	
-//	outputData = new Text(parent,SWT.BORDER);
-//	outputData.setLayoutData(new GridData(SWT.FILL,SWT.CENTER, true, true,1,3));
-//	
-//	WritableValue  value =  new WritableValue();
-//	
-//	//create the binding
-//	DataBindingContext ctx =  new DataBindingContext();
-//	IObservableValue target = WidgetProperties.text(SWT.Modify).observe(name);
-//	IObservableValue model = BeanProperties.value(hibernateDB.class,"userName").observe(value);
-//	 
-//	 Binding bindValue = ctx.bindValue(target, model,strategy,null);
-//	 ControlDecorationSupport.create(bindValue,SWT.TOP | SWT.LEFT);
-//	
-//	 //create object 
-//	 final hibernateDB user = new hibernateDB();
-//	 
-//	 value.setValue(user);
-//	 
-//	 Button button = new Button(parent,SWT.PUSH);
-//	 button.setText("Enter in table");
-//	 tableViewer = new TableViewer(parent);
-//	 button.addSelectionListener(new SelectionAdapter() {
-//		 @Override
-//		 public void widgetSelected(SelectionEvent e){
-//			 int number = Integer.parseInt(text.getText());
-//			 String person_name = name.getText();	
-//			 System.out.println(name.getText());
-//			 
-//			 user.setUserId(number);
-//			 user.setUserName(person_name);		 
-//			 try{
-//				 tableViewer.add(number);
-//				 tableViewer.add(person_name);
-//		
-//				 user.setUserId(number);
-//				 user.setUserName(person_name);
-//				 StoreInDatabase sb = new StoreInDatabase();
-//				 sb.writeToDatabase(user);
-//				 tableViewer.getTable().setLayoutData(new GridData(GridData.FILL_BOTH));
-//	        }catch(Exception e1){
-//	        	e1.printStackTrace();
-//	        }
-//		 }
-//	});
+	GridLayout layout = new GridLayout(2,false);
+	parent.setLayout(layout);
+	
+	Label selectPerson = new Label(parent, SWT.NONE);
+	selectPerson.setText("Select a type");
+	
+	final ComboViewer viewer = new ComboViewer(parent, SWT.MULTI|SWT.READ_ONLY);
+	
+	viewer.setContentProvider(ArrayContentProvider.getInstance());
+	
+	viewer.setLabelProvider(new LabelProvider(){
+
+		/* (non-Javadoc)
+		 * @see org.eclipse.jface.viewers.LabelProvider#getText(java.lang.Object)
+		 */
+		@Override
+		public String getText(Object element) {
+			if(element instanceof UserDetails){
+				UserDetails name = (UserDetails) element;
+				return name.getUserName();
+			}
+			return super.getText(element);
+		}
+	});
+	StoreInDatabase sd = new StoreInDatabase();
+	List<UserDetails> allNames = sd.listAllUsers();
+	
+	viewer.setInput(allNames);
+	
+	viewer.addSelectionChangedListener(new ISelectionChangedListener() {
+		
+		@Override
+		public void selectionChanged(SelectionChangedEvent event) {
+			IStructuredSelection selection = (IStructuredSelection) event.getSelection();
+			if(selection.size()>0){
+				System.out.println(((UserDetails)selection.getFirstElement()).getNumber());
+				comboSelection.setText(((UserDetails)selection.getFirstElement()).getNumber());
+			}
+			
+		}
+	});
+	
+	comboSelection = new Text(parent, SWT.READ_ONLY);
+	comboSelection.setLayoutData(new GridData(SWT.FILL,SWT.CENTER,true,true));
+	
+	final ListViewer list = new ListViewer(parent, SWT.MULTI|SWT.V_SCROLL|SWT.H_SCROLL);
+	list.add("a");
+	list.add("a");list.add("a");list.add("a");list.add("a");list.add("a");list.add("a");list.add("a");
+	
+	
+	
+	
 	}
 	
-//	@PostConstruct
-//	public void createControls(Composite parent){
-//		  System.out.println(this.getClass().getSimpleName() 
-//				  + " @PostConstruct method called.");
-//
-//	}
 }
