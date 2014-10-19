@@ -2,6 +2,7 @@ package com.example.e4.rcp.todo.parts;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -46,6 +47,7 @@ import com.example.e4.rcp.tables.hibernateDB;
 public class TodoDetailsPart {
 	
 	protected Text comboSelection;
+	protected Text listSelection;
 	
 	@PostConstruct
 	public void createComposite(Composite parent) {
@@ -94,9 +96,40 @@ public class TodoDetailsPart {
 	comboSelection = new Text(parent, SWT.READ_ONLY);
 	comboSelection.setLayoutData(new GridData(SWT.FILL,SWT.CENTER,true,true));
 	
-	final ListViewer list = new ListViewer(parent, SWT.MULTI|SWT.V_SCROLL|SWT.H_SCROLL);
-	list.add("a");
-	list.add("a");list.add("a");list.add("a");list.add("a");list.add("a");list.add("a");list.add("a");
+	listSelection = new Text(parent, SWT.READ_ONLY);
+	listSelection.setLayoutData(new GridData(SWT.FILL,SWT.CENTER,true,true));
+	
+	final ListViewer lists = new ListViewer(parent, SWT.MULTI|SWT.V_SCROLL|SWT.H_SCROLL);
+	lists.setContentProvider(ArrayContentProvider.getInstance());
+	lists.setLabelProvider(new LabelProvider(){
+
+		/* (non-Javadoc)
+		 * @see org.eclipse.jface.viewers.LabelProvider#getText(java.lang.Object)
+		 */
+		@Override
+		public String getText(Object element) {
+			if(element instanceof UserDetails){
+				UserDetails name = (UserDetails) element;
+				return name.getUserName();
+			}
+			return super.getText(element);
+		}
+	});
+	lists.setInput(allNames);
+	lists.addSelectionChangedListener(new ISelectionChangedListener() {
+		
+		@Override
+		public void selectionChanged(SelectionChangedEvent event) {
+			IStructuredSelection selection = (IStructuredSelection) event.getSelection();
+			StringBuffer sb = new StringBuffer("Selection- ");
+			sb.append("Total"+selection.size()+"items selected:");
+			for(Iterator iterator = selection.iterator(); iterator.hasNext();){
+				sb.append(iterator.next()+",");
+			}
+			System.out.println("Lists:"+sb);
+			listSelection.setText(sb.toString());
+		}
+	});
 	
 	
 	

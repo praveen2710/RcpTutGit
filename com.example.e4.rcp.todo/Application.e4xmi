@@ -25,6 +25,19 @@
           </children>
         </children>
       </children>
+      <children xsi:type="advanced:Perspective" xmi:id="_cMK18FZiEeSG25xod5uphQ" elementId="com.example.e4.rcp.todo.perspective.organizationPerspective" label="Organization Perspective">
+        <children xsi:type="basic:PartSashContainer" xmi:id="_i-gscFZiEeSG25xod5uphQ" elementId="com.example.e4.rcp.todo.partsashcontainer.2" horizontal="true">
+          <children xsi:type="basic:PartSashContainer" xmi:id="_rAxSsFZiEeSG25xod5uphQ" elementId="com.example.e4.rcp.todo.partsashcontainer.3">
+            <children xsi:type="basic:PartStack" xmi:id="_lDQLYFZiEeSG25xod5uphQ" elementId="com.example.e4.rcp.todo.partstack.3">
+              <children xsi:type="basic:Part" xmi:id="_x-0p8FZiEeSG25xod5uphQ" elementId="com.example.e4.rcp.todo.part.orgdetails" contributionURI="bundleclass://com.example.e4.rcp.todo/com.example.r4.rcp.Organization.parts.SearchOrganization" label="OrgDetails"/>
+            </children>
+            <children xsi:type="basic:PartStack" xmi:id="_xkWUcFZiEeSG25xod5uphQ" elementId="com.example.e4.rcp.todo.partstack.4">
+              <children xsi:type="basic:Part" xmi:id="_V0m5EFc1EeSJ9anWGELJ8Q" elementId="com.example.e4.rcp.todo.part.accountDetails" contributionURI="bundleclass://com.example.e4.rcp.todo/com.example.r4.rcp.Organization.parts.SAmplePart" label="Account Details"/>
+            </children>
+          </children>
+          <children xsi:type="basic:PartStack" xmi:id="_FTMg0FZnEeSG25xod5uphQ" elementId="com.example.e4.rcp.todo.partstack.5"/>
+        </children>
+      </children>
     </children>
     <mainMenu xmi:id="_g7WqUDq1EeSU78_WTHZThQ" elementId=" org.eclipse.ui.main.menu">
       <children xsi:type="menu:MenuSeparator" xmi:id="_2tI7oDq1EeSU78_WTHZThQ" elementId="com.example.e4.rcp.todo.menuseparator.0"/>
@@ -42,10 +55,14 @@
           <parameters xmi:id="_VdjeYDrCEeSYHvxKuiP73A" elementId="menuinputparameter" name="com.example.e4.rcp.todo.commandparameter.input" value="Praveen"/>
         </children>
       </children>
+      <children xsi:type="menu:Menu" xmi:id="_wH2EwFZjEeSG25xod5uphQ" elementId="com.example.e4.rcp.todo.menu.perspective" label="Perspective">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_zgc_UFZjEeSG25xod5uphQ" elementId="com.example.e4.rcp.todo.handledmenuitem.organization" label="Organization" command="_NAQ3AFZjEeSG25xod5uphQ"/>
+      </children>
     </mainMenu>
     <trimBars xmi:id="_VKoY0Dq2EeSU78_WTHZThQ" elementId="com.example.e4.rcp.todo.trimbar.0">
       <children xsi:type="menu:ToolBar" xmi:id="_XVyo0Dq2EeSU78_WTHZThQ" elementId="com.example.e4.rcp.todo.toolbar.0">
         <children xsi:type="menu:HandledToolItem" xmi:id="_YulnwDq2EeSU78_WTHZThQ" elementId="com.example.e4.rcp.todo.handledtoolitem.save" label="Save" command="_sfcqgDqzEeSU78_WTHZThQ"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_52edQFIxEeSetL8vW6VyBQ" elementId="com.example.e4.rcp.todo.handledtoolitem.createOrganization" label="Create Organization" command="_EBCz0FIyEeSetL8vW6VyBQ"/>
       </children>
       <children xsi:type="menu:ToolControl" xmi:id="_djeukDrAEeSYHvxKuiP73A" elementId="com.example.e4.rcp.todo.toolcontrol.0" contributionURI="bundleclass://com.example.e4.rcp.todo/com.example.e4.rcp.todo.parts.to_do.SearchToolItem"/>
     </trimBars>
@@ -62,6 +79,8 @@
   <handlers xmi:id="_Ph65UDq1EeSU78_WTHZThQ" elementId="com.example.e4.rcp.todo.handler.remove" contributionURI="bundleclass://com.example.e4.rcp.todo/com.example.e4.rcp.todo.handlers.RemoveTodoHandler" command="_GRlL0Dq0EeSU78_WTHZThQ"/>
   <handlers xmi:id="_S8VKsDq1EeSU78_WTHZThQ" elementId="com.example.e4.rcp.todo.handler.test" contributionURI="bundleclass://com.example.e4.rcp.todo/com.example.e4.rcp.todo.handlers.TestHandler" command="_Jj54MDq0EeSU78_WTHZThQ"/>
   <handlers xmi:id="_riOT4EZREeSwcb_Y_co4_A" elementId="com.example.e4.rcp.todo.handler.delete" contributionURI="bundleclass://com.example.e4.rcp.todo/com.example.e4.rcp.todo.handlers.DeleteHandler" command="_kEqWIEZREeSwcb_Y_co4_A"/>
+  <handlers xmi:id="_L7jMQFIyEeSetL8vW6VyBQ" elementId="com.example.e4.rcp.todo.handler.0" contributionURI="bundleclass://com.example.e4.rcp.todo/com.example.e4.rcp.todo.handlers.AddOrganization" command="_EBCz0FIyEeSetL8vW6VyBQ"/>
+  <handlers xmi:id="_ReLz0FZjEeSG25xod5uphQ" elementId="com.example.e4.rcp.todo.handler.1" contributionURI="bundleclass://com.example.e4.rcp.todo/com.example.e4.rcp.todo.handlers.SwitchPerspective" command="_NAQ3AFZjEeSG25xod5uphQ"/>
   <commands xmi:id="_sfcqgDqzEeSU78_WTHZThQ" elementId="org.eclipse.ui.file.saveAll" commandName="Save">
     <parameters xmi:id="_0kLV8DqzEeSU78_WTHZThQ" elementId="com.example.e4.rcp.todo.commandparameter.0" name="Command Parameter 0"/>
   </commands>
@@ -80,6 +99,8 @@
   <commands xmi:id="_kEqWIEZREeSwcb_Y_co4_A" elementId="com.example.e4.rcp.todo.command.delete" commandName="Delete">
     <parameters xmi:id="_nacmMEZREeSwcb_Y_co4_A" elementId="com.example.e4.rcp.todo.commandparameter.4" name="Command Parameter 0"/>
   </commands>
+  <commands xmi:id="_EBCz0FIyEeSetL8vW6VyBQ" elementId="com.example.e4.rcp.todo.command.addorganization" commandName="AddOrganization" description="This Command is to Add Organizations To Database"/>
+  <commands xmi:id="_NAQ3AFZjEeSG25xod5uphQ" elementId="com.example.e4.rcp.todo.command.changePerspective" commandName="Change Perspective" description="To switch between perspectives"/>
   <addons xmi:id="_oRWf8TqTEeSU78_WTHZThQ" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_oRWf8jqTEeSU78_WTHZThQ" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_oRWf8zqTEeSU78_WTHZThQ" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>

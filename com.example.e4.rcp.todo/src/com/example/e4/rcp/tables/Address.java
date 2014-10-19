@@ -1,116 +1,74 @@
 package com.example.e4.rcp.tables;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-public class Address {
-
-	private String street;
-	private String number;
-	private String postalCode; //required
-	private String city; //required
-	private String country; //required
+@Entity
+@Table(name="Addresses")
+public class Address implements DatabaseAccess{
 	
-	private PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
-	
-	public Address(){	
-	}
-	
-	public Address(String postalCode,String city,String country){
-		this.postalCode = postalCode;
-		this.city = city;
-		this.country = country;
-	}
-	
-	public void addPropertyChangeListener(String propertyName,PropertyChangeListener listener){
-		propertyChangeSupport.addPropertyChangeListener(propertyName,listener);
-	}
-	
-	public void removePropertyChangeListener(PropertyChangeListener listener){
-		propertyChangeSupport.removePropertyChangeListener(listener);
-	}
-	
+	@Id @GeneratedValue(strategy= GenerationType.AUTO)
+	private int addId;
+	private String address;
+	private String state;
+	private Integer postalCode; 
+	private String city; 
 	
 	/**
-	 * @return the street
+	 * @return the address
 	 */
-	public String getStreet() {
-		return street;
+	public String getAddress() {
+		return address;
 	}
-
 	/**
-	 * @return the number
+	 * @return the state
 	 */
-	public String getNumber() {
-		return number;
+	public String getState() {
+		return state;
 	}
-
 	/**
 	 * @return the postalCode
 	 */
-	public String getPostalCode() {
+	public Integer getPostalCode() {
 		return postalCode;
 	}
-
 	/**
 	 * @return the city
 	 */
 	public String getCity() {
 		return city;
 	}
-
 	/**
-	 * @return the country
+	 * @param address the address to set
 	 */
-	public String getCountry() {
-		return country;
+	public void setAddress(String address) {
+		this.address = address;
 	}
-
-
 	/**
-	 * @param street the street to set
+	 * @param state the state to set
 	 */
-	public void setStreet(String street) {
-		propertyChangeSupport.firePropertyChange("street",this.street,this.street = street);
+	public void setState(String state) {
+		this.state = state;
 	}
-
-	/**
-	 * @param number the number to set
-	 */
-	public void setNumber(String number) {
-		propertyChangeSupport.firePropertyChange("number",this.number ,this.number = number);
-	}
-
 	/**
 	 * @param postalCode the postalCode to set
 	 */
-	public void setPostalCode(String postalCode) {
-		propertyChangeSupport.firePropertyChange("Postal Code",this.postalCode,this.postalCode = postalCode);
+	public void setPostalCode(int postalCode) {
+		this.postalCode = postalCode;
 	}
-
 	/**
 	 * @param city the city to set
 	 */
 	public void setCity(String city) {
-		propertyChangeSupport.firePropertyChange("City",this.city,this.city = city);
+		this.city = city;
 	}
-
-	/**
-	 * @param country the country to set
-	 */
-	public void setCountry(String country) {
-		propertyChangeSupport.firePropertyChange("Country",this.country,this.country = country);
-	}
-
 	@Override
-	public String toString(){
-		String s="";
-		s+= street !=null?street+" ":"";
-		s+= number !=null?number+" ":"";
-		s+= postalCode !=null?postalCode+" ":"";
-		s+= city !=null?city+" ":"";
-		s+= country !=null?country+" ":"";
-		
-		return s;
+	public long getId() {
+		// TODO Auto-generated method stub
+		return addId;
 	}
+
 }

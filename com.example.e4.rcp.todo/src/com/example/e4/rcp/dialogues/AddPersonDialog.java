@@ -16,17 +16,16 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
+import com.example.e4.rcp.tables.ContactDetails;
 import com.example.e4.rcp.tables.UserDetails;
 
 public class AddPersonDialog extends TitleAreaDialog{
 
-	private Text text1;
-	private Text text2;
-	private UserDetails person;
-	private Button button1;
-	private Combo genderSelection;
+	private Text personName;
+	private Text contactNumber;
+	private ContactDetails person;
 	
-	public UserDetails getPerson(){
+	public ContactDetails getPerson(){
 		return person;
 	}
 	
@@ -39,11 +38,11 @@ public class AddPersonDialog extends TitleAreaDialog{
 	 * @see org.eclipse.jface.dialogs.TitleAreaDialog#createContents(org.eclipse.swt.widgets.Composite)
 	 */
 	@Override
-	public Control createContents(Composite parent) {
-		Control contents = super.createContents(parent);
+	public void create() {
+		super.create();
 		setTitle("Add a new Person");
 		setMessage("Please enter person details",IMessageProvider.INFORMATION);
-		return contents;
+		
 	}
 
 	/* (non-Javadoc)
@@ -55,47 +54,42 @@ public class AddPersonDialog extends TitleAreaDialog{
 		parent.setLayout(layout);
 		
 		Label userNameLabel = new Label(parent,SWT.NONE);
-		userNameLabel.setText("Enter Name");
-		text1 = new Text(parent, SWT.NONE);
+		userNameLabel.setText("Enter Person's Name");
+		personName = new Text(parent, SWT.NONE);
 		
 		Label ageLabel = new Label(parent,SWT.NONE);
-		ageLabel.setText("Age");
-		text2 = new Text(parent,SWT.NONE);
-		
-		Label genderLabel = new Label(parent, SWT.READ_ONLY);
-		genderLabel.setText("Gender");
-		genderSelection = new Combo(parent, SWT.READ_ONLY);
-		genderSelection.add("Male");
-		genderSelection.add("female");
-		
+		ageLabel.setText("Phone Number");
+		contactNumber = new Text(parent,SWT.NONE);
+		contactNumber.setTextLimit(10);
+			
 		return parent;
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.dialogs.Dialog#createButtonsForButtonBar(org.eclipse.swt.widgets.Composite)
-	 */
+	
 	@Override
-	protected void createButtonsForButtonBar(Composite parent) {
-		((GridLayout) parent.getLayout()).numColumns++;
+	protected void okPressed(){
+		person = new ContactDetails();
 		
-		Button button = new Button(parent, SWT.PUSH);
-		button.setText("OK");
-		button.setFont(JFaceResources.getDialogFont());
-		button.addSelectionListener(new SelectionAdapter() {
-
-			/* (non-Javadoc)
-			 * @see org.eclipse.swt.events.SelectionAdapter#widgetSelected(org.eclipse.swt.events.SelectionEvent)
-			 */
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				if(text1.getText().length()!=0 && text2.getText().length()!=0 && genderSelection.getItem(genderSelection.getSelectionIndex()).length() !=0){
-					person = new UserDetails(text1.getText(),text2.getText());
-					close();
-				}else{
-					setErrorMessage("Please Enter All datA");
-				}
+		if(personName.getText().length()!=0){
+			person.setPersonName(personName.getText());
+		}else{
+			setErrorMessage("Please Enter Valid datA");
+		}
+		
+		try{
+			System.out.println(contactNumber.getText().length());
+			if(contactNumber.getText().length()==10){		
+				person.setContactNumber(Long.parseLong(contactNumber.getText()));
+				close();
+			}else{
+				setErrorMessage("Please Enter Valid Number");
 			}
-		});
+		}catch(NumberFormatException npe){
+			setErrorMessage("number Format Exception");
+			npe.printStackTrace();
+		}
+			
 	}
+	
 
 }

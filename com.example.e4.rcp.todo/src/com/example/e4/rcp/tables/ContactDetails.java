@@ -1,70 +1,47 @@
 package com.example.e4.rcp.tables;
 
-public class ContactDetails {
-	private String name;
-	private int age;
-	private Geneder gender;
-	private Status status;
-	private String country;
+import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name="Contacts")
+public class ContactDetails implements DatabaseAccess{
+	
+	private String personName;
+	@Id
+	private long contactNumber;
+	
 	/**
-	 * @return the name
+	 * @return the personName
 	 */
-	public String getName() {
-		return name;
+	public String getPersonName() {
+		return personName;
 	}
 	/**
-	 * @return the age
+	 * @return the contactNumber
 	 */
-	public int getAge() {
-		return age;
+	public long getContactNumber() {
+		return contactNumber;
 	}
 	/**
-	 * @return the gender
+	 * @param personName the personName to set
 	 */
-	public Geneder getGender() {
-		return gender;
+	public void setPersonName(String personName) {
+		this.personName = personName;
 	}
 	/**
-	 * @return the status
+	 * @param d the contactNumber to set
 	 */
-	public Status getStatus() {
-		return status;
+	public void setContactNumber(long d) {
+		this.contactNumber = d;
 	}
-	/**
-	 * @return the country
-	 */
-	public String getCountry() {
-		return country;
-	}
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-	/**
-	 * @param age the age to set
-	 */
-	public void setAge(int age) {
-		this.age = age;
-	}
-	/**
-	 * @param gender the gender to set
-	 */
-	public void setGender(Geneder gender) {
-		this.gender = gender;
-	}
-	/**
-	 * @param status the status to set
-	 */
-	public void setStatus(Status status) {
-		this.status = status;
-	}
-	/**
-	 * @param country the country to set
-	 */
-	public void setCountry(String country) {
-		this.country = country;
+	@Override
+	public long getId() {
+		// TODO Auto-generated method stub
+		return contactNumber;
 	}
 	
 }

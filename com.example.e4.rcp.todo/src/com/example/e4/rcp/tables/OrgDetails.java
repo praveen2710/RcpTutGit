@@ -2,11 +2,21 @@ package com.example.e4.rcp.tables;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -16,92 +26,90 @@ public class OrgDetails implements DatabaseAccess{
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	private int orgId;
 	private String orgName;
-	private String orgAddress;
-	private String orgCity;
-	private String orgType;
+	@OneToOne
+	private Address orgAddress;
+	private String busType;
+	private String tin;
+	private String transactionType;
 	
-	@Transient
-	private PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
-	
-	public void addPropertyChangeListener(String propertyName,PropertyChangeListener listener){
-		propertyChangeSupport.addPropertyChangeListener(propertyName,listener);
-	}
-	
-	public void removePropertyChangeListener(PropertyChangeListener listener){
-		propertyChangeSupport.removePropertyChangeListener(listener);
-	}
-	
-	public OrgDetails() {
-		
-	}
-	
-	public OrgDetails(String orgName,String orgAddress,String orgCity,String busType){
-		this.orgName = orgName;
-		this.orgAddress = orgAddress;
-		this.orgCity = orgCity;
-		this.orgType = busType;
-	}
-	
+	@OneToMany
+	private Collection<ContactDetails> contacts = new ArrayList<ContactDetails>();
 	@Override
-	public int getId() {
+	public long getId() {
+		
 		return orgId;
 	}
-
 	/**
 	 * @return the orgName
 	 */
 	public String getOrgName() {
 		return orgName;
 	}
-
 	/**
 	 * @return the orgAddress
 	 */
-	public String getOrgAddress() {
+	public Address getOrgAddress() {
 		return orgAddress;
 	}
-
 	/**
-	 * @return the orgCity
+	 * @return the busType
 	 */
-	public String getOrgCity() {
-		return orgCity;
+	public String getBusType() {
+		return busType;
 	}
-
 	/**
-	 * @return the orgType
+	 * @return the tin
 	 */
-	public String getOrgType() {
-		return orgType;
+	public String getTin() {
+		return tin;
 	}
-
+	/**
+	 * @return the transactionType
+	 */
+	public String getTransactionType() {
+		return transactionType;
+	}
+	/**
+	 * @return the contacts
+	 */
+	public Collection<ContactDetails> getContacts() {
+		return contacts;
+	}
+	/**
+	 * @param contacts the contacts to set
+	 */
+	public void setContacts(Collection<ContactDetails> contacts) {
+		this.contacts = contacts;
+	}
 	/**
 	 * @param orgName the orgName to set
 	 */
 	public void setOrgName(String orgName) {
-		System.out.println(orgName);
-		propertyChangeSupport.firePropertyChange("orgName",this.orgName,this.orgName = orgName);
+		this.orgName = orgName;
 	}
-
 	/**
 	 * @param orgAddress the orgAddress to set
 	 */
-	public void setOrgAddress(String orgAddress) {
-		System.out.println(orgAddress);
-		propertyChangeSupport.firePropertyChange("address",this.orgAddress,this.orgAddress = orgAddress);
+	public void setOrgAddress(Address orgAddress) {
+		this.orgAddress = orgAddress;
 	}
-
 	/**
-	 * @param orgCity the orgCity to set
+	 * @param busType the busType to set
 	 */
-	public void setOrgCity(String orgCity) {
-		propertyChangeSupport.firePropertyChange("city",this.orgCity,this.orgCity = orgCity);
+	public void setBusType(String busType) {
+		this.busType = busType;
 	}
-
 	/**
-	 * @param orgType the orgType to set
+	 * @param tin the tin to set
 	 */
-	public void setOrgType(String orgType) {
-		propertyChangeSupport.firePropertyChange("buisnessType",this.orgType,this.orgType = orgType);
+	public void setTin(String tin) {
+		this.tin = tin;
 	}
+	/**
+	 * @param transactionType the transactionType to set
+	 */
+	public void setTransactionType(String transactionType) {
+		this.transactionType = transactionType;
+	}
+	
 }

@@ -112,7 +112,7 @@ public class UserDetails implements  DatabaseAccess/*PropertyChangeListener*/ {
 	}
 
 	@Override
-	public int getId() {
+	public long getId() {
 		return userId;
 	}
 }

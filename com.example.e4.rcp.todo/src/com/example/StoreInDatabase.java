@@ -1,10 +1,12 @@
 package com.example;
 
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -20,14 +22,16 @@ public class StoreInDatabase {
 	
 
 	
-	public void writeToDatabase(DatabaseAccess details){
+	public void writeToDatabase(List<DatabaseAccess> affectedTables){
 		Configuration config = new Configuration();
 		config.configure();
 		StandardServiceRegistryBuilder ssrb =new StandardServiceRegistryBuilder().applySettings(config.getProperties());
 		sessionFactory = config.buildSessionFactory(ssrb.build());
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
-		session.save(details);
+		for(DatabaseAccess tablesList: affectedTables){
+		session.save(tablesList);
+		}
 		session.getTransaction().commit();
 		sessionFactory.close();
 	}
@@ -78,6 +82,27 @@ public class StoreInDatabase {
 		}finally{
 			session.close();
 		}
+	}
+	
+	public List<?> retrieveFromDatabase(String parameter){
+		Configuration config = new Configuration();
+		config.configure();
+		StandardServiceRegistryBuilder ssrb =new StandardServiceRegistryBuilder().applySettings(config.getProperties());
+		sessionFactory = config.buildSessionFactory(ssrb.build());
+		Session session = sessionFactory.openSession();
+		List<?> orgs = null;
+		try{
+			Query query = session.createQuery("from OrgDetails where orgName = :name");
+			query.setParameter("name",parameter);
+			 orgs = query.list();
+			
+		}catch(HibernateException e){
+			e.printStackTrace();
+		}
+		finally{
+			session.close();
+		}
+		return orgs;
 	}
 }
 
