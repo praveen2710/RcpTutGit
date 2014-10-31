@@ -10,6 +10,7 @@ import java.util.Set;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -32,7 +33,7 @@ public class OrgDetails implements DatabaseAccess{
 	private String tin;
 	private String transactionType;
 	
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER)
 	private Collection<ContactDetails> contacts = new ArrayList<ContactDetails>();
 	@Override
 	public long getId() {
