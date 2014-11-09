@@ -35,7 +35,11 @@
               <children xsi:type="basic:Part" xmi:id="_V0m5EFc1EeSJ9anWGELJ8Q" elementId="com.example.e4.rcp.todo.part.accountDetails" contributionURI="bundleclass://com.example.e4.rcp.todo/com.example.r4.rcp.Organization.parts.SAmplePart" label="Account Details"/>
             </children>
           </children>
-          <children xsi:type="basic:PartStack" xmi:id="_FTMg0FZnEeSG25xod5uphQ" elementId="com.example.e4.rcp.todo.partstack.5"/>
+          <children xsi:type="basic:PartStack" xmi:id="_FTMg0FZnEeSG25xod5uphQ" elementId="com.example.e4.rcp.todo.partstack.5">
+            <children xsi:type="basic:Part" xmi:id="_g7T-MGDtEeS1hP5OYsHKUg" elementId="com.example.e4.rcp.todo.part.asdf" contributionURI="bundleclass://com.example.e4.rcp.todo/org.eclipse.jface.snippets.viewers.Snippet01TableViewerBuilder" label="asdf"/>
+            <children xsi:type="basic:Part" xmi:id="_kAv1wGYqEeS8QvjK-PLImQ" elementId="com.example.e4.rcp.todo.part.tableviewerbuilder" contributionURI="bundleclass://com.example.e4.rcp.todo/com.example.r4.rcp.Organization.parts.tableViewerBuilder" label="tableviewerbuilder"/>
+            <children xsi:type="basic:Part" xmi:id="_XBREgGcPEeS7x5CtmOnGng" elementId="com.example.e4.rcp.todo.part.llllllll" contributionURI="bundleclass://com.example.e4.rcp.todo/org.eclipse.jface.snippets.viewers.DialogCellEditor" label="llllllll"/>
+          </children>
         </children>
       </children>
     </children>
