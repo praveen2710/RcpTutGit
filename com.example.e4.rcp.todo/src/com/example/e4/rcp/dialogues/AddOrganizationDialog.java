@@ -1,13 +1,21 @@
 package com.example.e4.rcp.dialogues;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import org.eclipse.core.databinding.DataBindingContext;
+import org.eclipse.core.databinding.beans.BeanProperties;
+import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.databinding.swt.WidgetProperties;
 import org.eclipse.jface.databinding.viewers.ObservableListContentProvider;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
@@ -27,6 +35,11 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.jface.action.Action;
+//import org.eclipse.swt.widgets.Menu;
+import org.eclipse.jface.action.IMenuListener;
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
@@ -35,6 +48,7 @@ import org.eclipse.swt.widgets.Text;
 import com.example.e4.rcp.tables.Address;
 import com.example.e4.rcp.tables.ContactDetails;
 import com.example.e4.rcp.tables.OrgDetails;
+import com.example.e4.rcp.tables.UserDetails;
 import com.exmaple.e4.tableFunctionality.edit.UserNameEditingSupport;
 
 public class AddOrganizationDialog extends TitleAreaDialog {
@@ -45,13 +59,15 @@ public class AddOrganizationDialog extends TitleAreaDialog {
 	private Text orgCity;
 	private Text zipCode;
 	private Text allBusType;
+	private OrgDetails selectedOrg;
 	
 	private ComboViewer transactionType;
 	private ListViewer busType;
 	private Button addPerson;
 	private TableViewer personTable;
+	private boolean existingRecord=false;
 	
-	private List<ContactDetails> contacts;
+	private Collection<ContactDetails> contacts;
 	private OrgDetails oneOrgDetails;
 	private Address oneOrgAddress;
 	
@@ -75,7 +91,7 @@ public class AddOrganizationDialog extends TitleAreaDialog {
 	/**
 	 * @return the contacts
 	 */
-	public List<ContactDetails> getContacts() {
+	public Collection<ContactDetails> getContacts() {
 		return contacts;
 	}
 
@@ -89,7 +105,7 @@ public class AddOrganizationDialog extends TitleAreaDialog {
 	@Override
 	public void create() {
 		super.create();
-		setTitle("Add New Organization here");
+		setTitle("Add Or Update Organization here");
 		setMessage("Add all required Organization details here with persons of contacts");
 		contacts =  new ArrayList<ContactDetails>();
 		personTable.setInput(contacts);
@@ -131,6 +147,7 @@ public class AddOrganizationDialog extends TitleAreaDialog {
 				AddPersonDialog dialog = new AddPersonDialog(shell);
 				dialog.open();
 				if(dialog.getPerson() != null){
+					System.out.println("Came out of dialog person");
 					contacts.add(dialog.getPerson());
 					personTable.refresh();
 				}
@@ -206,17 +223,54 @@ public class AddOrganizationDialog extends TitleAreaDialog {
 		createColumns(parent, personTable);
 		final Table table = personTable.getTable();
 		personTable.setContentProvider(new ArrayContentProvider());
-		personTable.addSelectionChangedListener(new ISelectionChangedListener() {
+//		personTable.addSelectionChangedListener(new ISelectionChangedListener() {
+//
+//			@Override
+//			public void selectionChanged(SelectionChangedEvent event) {
+//				IStructuredSelection selection = (IStructuredSelection) event
+//						.getSelection();
+//				// set the selection to the service
+//				selectionService.setSelection(selection.size() == 1 ? selection
+//						.getFirstElement() : selection.toArray());
+//			}
+//		});
+		
+		MenuManager manager = new MenuManager();
+		personTable.getControl().setMenu(manager.createContextMenu(personTable.getControl()));
 
-			@Override
-			public void selectionChanged(SelectionChangedEvent event) {
-				IStructuredSelection selection = (IStructuredSelection) event
-						.getSelection();
-				// set the selection to the service
-				selectionService.setSelection(selection.size() == 1 ? selection
-						.getFirstElement() : selection.toArray());
-			}
+		manager.add(new Action("MENU ITEM TEXT") {
+		    @Override
+		    public void run() {
+		        // get the current selection of the tableviewer
+		        IStructuredSelection selection = (IStructuredSelection) personTable.getSelection();
+		        System.out.println("came in menu run");
+		        Shell shell = null;
+				MessageDialog.openConfirm(shell, "Confirm", "Please confirm");
+		        contacts.remove(selection.getFirstElement());
+		        personTable.refresh();
+		        // do something
+		    }
 		});
+		
+//		final Action a = new Action("") {
+//		};
+//		final MenuManager mgr = new MenuManager();  
+//		mgr.setRemoveAllWhenShown(true);
+//		
+//		mgr.addMenuListener(new IMenuListener() {
+//			
+//			@Override
+//			public void menuAboutToShow(IMenuManager manager) {
+//				IStructuredSelection selection = (IStructuredSelection) personTable.getSelection();
+//				if (!selection.isEmpty()) {
+//					System.out.println("came in menu");
+//					a.setText("Delete");
+//					mgr.add(a);
+//				}
+//				personTable.getControl().setMenu(mgr.createContextMenu(personTable.getControl()));
+//			}
+//		});
+		
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
 		personTable.getControl().setLayoutData(
@@ -257,7 +311,8 @@ public class AddOrganizationDialog extends TitleAreaDialog {
 				}
 
 		});
-			col.setEditingSupport(new UserNameEditingSupport(personTable));
+//			need to modify this for this particular table.
+//			col.setEditingSupport(new UserNameEditingSupport(personTable));
 
 			col = createTableViewerColumn(titles[1], bounds[1], 1);
 			col.setLabelProvider(new ColumnLabelProvider() {
@@ -316,5 +371,22 @@ public class AddOrganizationDialog extends TitleAreaDialog {
 		oneOrgAddress.setCity("AP");
 		
 		super.okPressed();
-	};
+	}
+	
+	public void selectedFromTable(OrgDetails selected){
+		this.selectedOrg = selected;
+		existingRecord = true;
+		System.out.println("In dialogue"+selectedOrg.getOrgName());
+		orgName.setText(selectedOrg.getOrgName()); 
+		contacts = selectedOrg.getContacts();
+		personTable.setInput(contacts);
+	}
+	
+//	private void bindValues() {
+//		DataBindingContext ctx = new DataBindingContext();
+//		IObservableValue widgetValue = WidgetProperties.text(SWT.Modify)
+//				.observe(orgName);
+//		IObservableValue modelValue = BeanProperties.value(OrgDetails.class,"orgName").observe(selectedOrg);
+//		ctx.bindValue(widgetValue, modelValue);
+//	}
 }

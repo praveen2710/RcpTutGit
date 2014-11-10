@@ -6,6 +6,7 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
 
 import com.example.StoreInDatabase;
+import com.example.e4.rcp.tables.ContactDetails;
 import com.example.e4.rcp.tables.UserDetails;
 
 public class UserNameEditingSupport extends EditingSupport{
@@ -31,13 +32,13 @@ public class UserNameEditingSupport extends EditingSupport{
 
 	@Override
 	protected Object getValue(Object element) {
-		return ((UserDetails) element).getUserName();
+		return ((ContactDetails) element).getPersonName();
 	}
 
 	@Override
 	protected void setValue(Object element, Object value) {
-		((UserDetails)element).setUserName(String.valueOf(value));
-		new StoreInDatabase().updateUserName(((UserDetails)element).getUserId(),String.valueOf(value));
+		((ContactDetails)element).setPersonName(String.valueOf(value));
+		new StoreInDatabase().updateUserName(((ContactDetails)element).getId(),String.valueOf(value));
 		viewer.update(element,null);
 	}
 

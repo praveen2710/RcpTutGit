@@ -16,6 +16,7 @@ import javax.inject.Inject;
 
 
 
+
 import org.eclipse.core.databinding.AggregateValidationStatus;
 import org.eclipse.core.databinding.Binding;
 import org.eclipse.core.databinding.DataBindingContext;
@@ -46,6 +47,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
+import com.example.e4.rcp.tables.DatabaseAccess;
 import com.example.e4.rcp.tables.UserDetails;
 import com.example.e4.rcp.validators.StringLongerThanTwo;
 import com.example.StoreInDatabase;
@@ -151,7 +153,7 @@ public class TodoOverviewpart{
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 //				System.out.println(details.getUserName()+details.getGender()+details.getAge());
-				sd.writeToDatabase(details);
+				sd.writeToDatabase((List<DatabaseAccess>) details);
 			}
 			
 		});

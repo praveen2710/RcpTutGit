@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import javax.swing.text.View;
 
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -24,6 +25,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
@@ -172,6 +174,7 @@ public class SearchBarViewPart {
 						.getFirstElement() : selection.toArray());
 			}
 		});
+
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
 		viewer.getControl().setLayoutData(

@@ -23,6 +23,7 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -33,12 +34,15 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 
 import com.example.StoreInDatabase;
+import com.example.e4.rcp.dialogues.AddOrganizationDialog;
 import com.example.e4.rcp.tables.ContactDetails;
+import com.example.e4.rcp.tables.DatabaseAccess;
 import com.example.e4.rcp.tables.OrgDetails;
 import com.exmaple.e4.tableFunctionality.DropDownInTable;
 import com.exmaple.e4.tableFunctionality.edit.ComBoxDisplaySupport;
@@ -131,6 +135,21 @@ public class SearchOrganization {
 				IStructuredSelection sel = (IStructuredSelection) event.getSelection();
 				OrgDetails org = (OrgDetails) sel.getFirstElement();
 				if(org != null){
+					Shell shell = null;
+					AddOrganizationDialog dialog = new AddOrganizationDialog(shell);
+					dialog.create();
+					dialog.selectedFromTable(org);
+					if(dialog.open() == Window.OK){
+						List<DatabaseAccess> affectedTables = new ArrayList<DatabaseAccess>();
+						StoreInDatabase sd = new StoreInDatabase();
+						affectedTables.add(dialog.getOneOrgAddress());
+						affectedTables.add(dialog.getOneOrgDetails());
+						for(DatabaseAccess eachContact : dialog.getContacts()){
+							affectedTables.add(eachContact);
+						}
+						sd.writeToDatabase(affectedTables);
+						System.out.println();
+					}
 					System.out.println("Double-click on : "+ org.getOrgName()+ " " + org.getTin());
 				}
 			}
