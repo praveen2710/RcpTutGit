@@ -45,7 +45,7 @@ import com.example.e4.rcp.tables.ContactDetails;
 import com.example.e4.rcp.tables.DatabaseAccess;
 import com.example.e4.rcp.tables.OrgDetails;
 import com.exmaple.e4.tableFunctionality.DropDownInTable;
-import com.exmaple.e4.tableFunctionality.edit.ComBoxDisplaySupport;
+//import com.exmaple.e4.tableFunctionality.edit.ComBoxDisplaySupport;
 
 public class SearchOrganization {
 	private Text searchText;

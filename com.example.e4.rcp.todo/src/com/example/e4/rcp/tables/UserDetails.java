@@ -20,6 +20,7 @@ public class UserDetails implements  DatabaseAccess/*PropertyChangeListener*/ {
 	private String userName;
 	private String number;
 	private int age;
+	
 //	private boolean married;
 //	private Address address;
 	@Transient

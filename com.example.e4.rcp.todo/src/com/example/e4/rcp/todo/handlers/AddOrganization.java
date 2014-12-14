@@ -9,7 +9,6 @@ import org.eclipse.swt.widgets.Shell;
 
 import com.example.StoreInDatabase;
 import com.example.e4.rcp.dialogues.AddOrganizationDialog;
-import com.example.e4.rcp.dialogues.MyTitleAreaDialog;
 import com.example.e4.rcp.tables.DatabaseAccess;
 
 public class AddOrganization {

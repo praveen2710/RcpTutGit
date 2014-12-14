@@ -56,5 +56,6 @@
   <mapping class="com.example.e4.rcp.tables.OrgDetails" />  
   <mapping class="com.example.e4.rcp.tables.Address"/>
   <mapping class="com.example.e4.rcp.tables.ContactDetails"/>  
+  <mapping class="com.example.e4.rcp.tables.ShipmentDetails"/> 
   </session-factory>
  </hibernate-configuration>

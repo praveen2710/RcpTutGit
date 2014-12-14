@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -12,8 +13,12 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Expression;
+import org.hibernate.criterion.Projections;
 
+import com.example.e4.rcp.tables.ContactDetails;
 import com.example.e4.rcp.tables.DatabaseAccess;
+import com.example.e4.rcp.tables.OrgDetails;
 import com.example.e4.rcp.tables.UserDetails;
 import com.example.e4.rcp.tables.hibernateDB;
 
@@ -103,6 +108,33 @@ public class StoreInDatabase {
 			session.close();
 		}
 		return orgs;
+	}
+	
+	public List<?> retrieveAllOrgNames(){
+		Configuration config = new Configuration();
+		config.configure();
+		StandardServiceRegistryBuilder ssrb =new StandardServiceRegistryBuilder().applySettings(config.getProperties());
+		sessionFactory = config.buildSessionFactory(ssrb.build());
+		Session session = sessionFactory.openSession();
+		List<?> orgsNames = null;
+		Criteria criteria = session.createCriteria(OrgDetails.class);
+		criteria.setProjection(Projections.property("orgName"));
+
+		return criteria.list();
+	}
+	
+	public List<?> retrieveAllOrgAllDetails(){
+		Configuration config = new Configuration();
+		config.configure();
+		StandardServiceRegistryBuilder ssrb =new StandardServiceRegistryBuilder().applySettings(config.getProperties());
+		sessionFactory = config.buildSessionFactory(ssrb.build());
+		Session session = sessionFactory.openSession();
+		List<?> orgsDetails = null;
+		Query query = session.createQuery("from OrgDetails");
+		
+		orgsDetails = query.list();
+		
+		return orgsDetails;
 	}
 }
 

@@ -49,7 +49,7 @@ import com.example.e4.rcp.tables.Address;
 import com.example.e4.rcp.tables.ContactDetails;
 import com.example.e4.rcp.tables.OrgDetails;
 import com.example.e4.rcp.tables.UserDetails;
-import com.exmaple.e4.tableFunctionality.edit.UserNameEditingSupport;
+//import com.exmaple.e4.tableFunctionality.edit.UserNameEditingSupport;
 
 public class AddOrganizationDialog extends TitleAreaDialog {
 	
@@ -60,6 +60,8 @@ public class AddOrganizationDialog extends TitleAreaDialog {
 	private Text zipCode;
 	private Text allBusType;
 	private OrgDetails selectedOrg;
+	private Text primaryContactName;
+	private Text primaryContactNumber;
 	
 	private ComboViewer transactionType;
 	private ListViewer busType;
@@ -184,9 +186,21 @@ public class AddOrganizationDialog extends TitleAreaDialog {
 		zipCode = new Text(container, SWT.NONE);
 		zipCode.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		
+		Label contactLabel = new Label(container,SWT.NONE);
+		contactLabel.setText("Primary Contact Name");
+		primaryContactName = new Text(container,SWT.NONE);
+		primaryContactName.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		
+		Label numberLabel = new Label(container,SWT.NONE);
+		numberLabel.setText("Primary Contact Number");
+		primaryContactNumber = new Text(container,SWT.NONE);
+		primaryContactNumber.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));	
 	}
 	
 	private void addBuisnessDetails(Composite container) {
+		
+		allBusType = new Text(container, SWT.READ_ONLY);
+		allBusType.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		
 		transactionType = new ComboViewer(container, SWT.MULTI|SWT.READ_ONLY);
 		transactionType.add("Creditor");
@@ -245,9 +259,12 @@ public class AddOrganizationDialog extends TitleAreaDialog {
 		        IStructuredSelection selection = (IStructuredSelection) personTable.getSelection();
 		        System.out.println("came in menu run");
 		        Shell shell = null;
-				MessageDialog.openConfirm(shell, "Confirm", "Please confirm");
-		        contacts.remove(selection.getFirstElement());
-		        personTable.refresh();
+				 boolean result  = MessageDialog.openConfirm(shell, "Confirm", "Please confirm");
+				 if(result){
+			        contacts.remove(selection.getFirstElement());
+			        personTable.refresh();
+				 }
+		        
 		        // do something
 		    }
 		});
@@ -363,6 +380,8 @@ public class AddOrganizationDialog extends TitleAreaDialog {
 //		oneOrgDetails.setBusType(allBusType.getText());
 		oneOrgDetails.setTransactionType(transactionType.getSelection().toString());
 		oneOrgDetails.setContacts(contacts);
+		oneOrgDetails.setPrimaryPerson(primaryContactName.getText());
+		oneOrgDetails.setPrimaryNumber(primaryContactNumber.getText());
 		
 		oneOrgAddress.setAddress(orgAddress.getText());
 		oneOrgAddress.setCity(orgCity.getText());
@@ -381,12 +400,5 @@ public class AddOrganizationDialog extends TitleAreaDialog {
 		contacts = selectedOrg.getContacts();
 		personTable.setInput(contacts);
 	}
-	
-//	private void bindValues() {
-//		DataBindingContext ctx = new DataBindingContext();
-//		IObservableValue widgetValue = WidgetProperties.text(SWT.Modify)
-//				.observe(orgName);
-//		IObservableValue modelValue = BeanProperties.value(OrgDetails.class,"orgName").observe(selectedOrg);
-//		ctx.bindValue(widgetValue, modelValue);
-//	}
+
 }

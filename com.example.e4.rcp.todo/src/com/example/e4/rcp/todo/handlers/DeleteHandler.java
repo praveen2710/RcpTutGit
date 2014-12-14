@@ -9,7 +9,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
 import com.example.StoreInDatabase;
-import com.example.e4.rcp.dialogues.MyTitleAreaDialog;
+//import com.example.e4.rcp.dialogues.MyTitleAreaDialog;
 import com.example.e4.rcp.tables.ContactDetails;
 import com.example.e4.rcp.tables.Geneder;
 import com.example.e4.rcp.tables.Status;
@@ -21,10 +21,10 @@ public class DeleteHandler {
 	@Execute
 	  public void execute() {
 		Shell shell = null;
-		MyTitleAreaDialog dialog = new MyTitleAreaDialog(shell);
-		dialog.create();
-		if(dialog.open() == Window.OK){
-			System.out.println(dialog.getFirstName());;
-		}
+//		MyTitleAreaDialog dialog = new MyTitleAreaDialog(shell);
+//		dialog.create();
+//		if(dialog.open() == Window.OK){
+//			System.out.println(dialog.getFirstName());;
+//		}
 	  }
 }

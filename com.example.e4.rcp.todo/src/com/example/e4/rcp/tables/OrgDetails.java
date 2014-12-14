@@ -32,6 +32,9 @@ public class OrgDetails implements DatabaseAccess{
 	private String busType;
 	private String tin;
 	private String transactionType;
+	private String primaryPerson;
+	private String primaryNumber;
+	private float currentBalance;
 	
 	@OneToMany(fetch = FetchType.EAGER)
 	private Collection<ContactDetails> contacts = new ArrayList<ContactDetails>();
@@ -77,10 +80,46 @@ public class OrgDetails implements DatabaseAccess{
 		return contacts;
 	}
 	/**
+	 * @return the primaryPerson
+	 */
+	public String getPrimaryPerson() {
+		return primaryPerson;
+	}
+	/**
+	 * @return the primaryNumber
+	 */
+	public String getPrimaryNumber() {
+		return primaryNumber;
+	}
+	/**
+	 * @return the currentBalance
+	 */
+	public float getCurrentBalance() {
+		return currentBalance;
+	}
+	/**
+	 * @param currentBalance the currentBalance to set
+	 */
+	public void setCurrentBalance(float currentBalance) {
+		this.currentBalance = currentBalance;
+	}
+	/**
+	 * @param primaryNumber the primaryNumber to set
+	 */
+	public void setPrimaryNumber(String primaryNumber) {
+		this.primaryNumber = primaryNumber;
+	}
+	/**
 	 * @param contacts the contacts to set
 	 */
 	public void setContacts(Collection<ContactDetails> contacts) {
 		this.contacts = contacts;
+	}
+	/**
+	 * @param primaryPerson the primaryPerson to set
+	 */
+	public void setPrimaryPerson(String primaryPerson) {
+		this.primaryPerson = primaryPerson;
 	}
 	/**
 	 * @param orgName the orgName to set

@@ -38,7 +38,10 @@ import com.example.e4.rcp.tables.UserDetails;
 import com.exmaple.e4.tableFunctionality.MyViewComparator;
 import com.exmaple.e4.tableFunctionality.PersonFilter;
 import com.exmaple.e4.tableFunctionality.TypeFilter;
-import com.exmaple.e4.tableFunctionality.edit.UserNameEditingSupport;
+//import com.exmaple.e4.tableFunctionality.edit.UserNameEditingSupport;
+
+import org.eclipse.nebula.widgets.cdatetime.CDT;
+import org.eclipse.nebula.widgets.cdatetime.CDateTime;
 
 public class SearchBarViewPart {
 
@@ -146,9 +149,9 @@ public class SearchBarViewPart {
 				AddPersonDialog dialog = new AddPersonDialog(shell);
 				dialog.open();
 				if(dialog.getPerson() != null){
-					sid.writeToDatabase(dialog.getPerson());
-					viewer.refresh();
-					viewer.setInput(sid.listAllUsers());
+//					sid.writeToDatabase(dialog.getPerson());
+//					viewer.refresh();
+//					viewer.setInput(sid.listAllUsers());
 				}
 			}
 			
@@ -215,7 +218,7 @@ public class SearchBarViewPart {
 			}
 
 	});
-		col.setEditingSupport(new UserNameEditingSupport(viewer));
+//		col.setEditingSupport(new UserNameEditingSupport(viewer));
 
 		col = createTableViewerColumn(titles[1], bounds[1], 1);
 		col.setLabelProvider(new ColumnLabelProvider() {
