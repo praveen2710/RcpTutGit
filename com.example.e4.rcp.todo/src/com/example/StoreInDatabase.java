@@ -16,6 +16,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Expression;
 import org.hibernate.criterion.Projections;
 
+import com.example.e4.rcp.tables.Address;
 import com.example.e4.rcp.tables.ContactDetails;
 import com.example.e4.rcp.tables.DatabaseAccess;
 import com.example.e4.rcp.tables.OrgDetails;
@@ -135,6 +136,34 @@ public class StoreInDatabase {
 		orgsDetails = query.list();
 		
 		return orgsDetails;
+	}
+	
+	public void updateOrgDetails(OrgDetails orgUpdate,Address addressUpdate,Long orgId){
+		Configuration config = new Configuration();
+		config.configure();
+		StandardServiceRegistryBuilder ssrb =new StandardServiceRegistryBuilder().applySettings(config.getProperties());
+		sessionFactory = config.buildSessionFactory(ssrb.build());
+		Session session = sessionFactory.openSession();
+		Transaction tx = null;
+		try{
+			tx = session.beginTransaction();	
+			OrgDetails od = (OrgDetails)session.get(OrgDetails.class,orgId); 
+			System.out.println(orgUpdate.getId());
+			od.setOrgName(orgUpdate.getOrgName());
+			od.setOrgName(orgUpdate.getOrgName());
+			od.setTin(orgUpdate.getTin());
+			od.setPrimaryNumber(orgUpdate.getPrimaryNumber());
+			od.setPrimaryPerson(orgUpdate.getPrimaryNumber());
+			Address ad = (Address) session.get(Address.class,od.getOrgAddress().getId());
+			ad.setAddress(addressUpdate.getAddress());
+			ad.setPostalCode(addressUpdate.getPostalCode());
+			tx.commit();
+		}catch(HibernateException e){
+			if(tx!=null) tx.rollback();
+			e.printStackTrace();
+		}finally{
+			session.close();
+		}
 	}
 }
 

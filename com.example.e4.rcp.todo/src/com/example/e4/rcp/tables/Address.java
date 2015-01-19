@@ -11,7 +11,7 @@ import javax.persistence.Table;
 public class Address implements DatabaseAccess{
 	
 	@Id @GeneratedValue(strategy= GenerationType.AUTO)
-	private int addId;
+	private long addId;
 	private String address;
 	private String state;
 	private Integer postalCode; 

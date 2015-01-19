@@ -23,9 +23,9 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name="Org_Details")
-public class OrgDetails implements DatabaseAccess{
+public class   OrgDetails implements DatabaseAccess{
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
-	private int orgId;
+	private long orgId;
 	private String orgName;
 	@OneToOne
 	private Address orgAddress;

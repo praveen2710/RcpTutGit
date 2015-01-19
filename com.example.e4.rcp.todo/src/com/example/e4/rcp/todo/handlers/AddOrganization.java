@@ -26,6 +26,7 @@ public class AddOrganization {
 			for(DatabaseAccess eachContact : dialog.getContacts()){
 				affectedTables.add(eachContact);
 			}
+			
 			sd.writeToDatabase(affectedTables);
 			System.out.println();
 		}

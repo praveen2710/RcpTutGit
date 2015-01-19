@@ -147,8 +147,8 @@ public class SearchOrganization {
 						for(DatabaseAccess eachContact : dialog.getContacts()){
 							affectedTables.add(eachContact);
 						}
-						sd.writeToDatabase(affectedTables);
-						System.out.println();
+						System.out.println("This is completely different flow");
+						sd.updateOrgDetails(dialog.getOneOrgDetails(), dialog.getOneOrgAddress(),org.getId());
 					}
 					System.out.println("Double-click on : "+ org.getOrgName()+ " " + org.getTin());
 				}
@@ -214,9 +214,9 @@ public class SearchOrganization {
 			public String getText(Object element) {
 				System.out.println("gettext"+element.toString());
 				OrgDetails od = (OrgDetails) element;
-				List<ContactDetails> contactsList = new ArrayList<ContactDetails>(od.getContacts());
-				System.out.println(Long.toString(contactsList.get(0).getContactNumber()));
-				return Long.toString(contactsList.get(0).getContactNumber());
+//				List<ContactDetails> contactsList = new ArrayList<ContactDetails>(od.getContacts());
+//				System.out.println(Long.toString(contactsList.get(0).getContactNumber()));
+				return od.getPrimaryNumber();
 			}
 
 		});

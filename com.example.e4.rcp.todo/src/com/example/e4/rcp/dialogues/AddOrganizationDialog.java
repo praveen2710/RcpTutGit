@@ -60,6 +60,14 @@ public class AddOrganizationDialog extends TitleAreaDialog {
 	private Text zipCode;
 	private Text allBusType;
 	private OrgDetails selectedOrg;
+	
+	/**
+	 * @return the selectedOrg
+	 */
+	public OrgDetails getSelectedOrg() {
+		return selectedOrg;
+	}
+
 	private Text primaryContactName;
 	private Text primaryContactNumber;
 	
@@ -69,6 +77,13 @@ public class AddOrganizationDialog extends TitleAreaDialog {
 	private TableViewer personTable;
 	private boolean existingRecord=false;
 	
+	/**
+	 * @return the existingRecord
+	 */
+	public boolean isExistingRecord() {
+		return existingRecord;
+	}
+
 	private Collection<ContactDetails> contacts;
 	private OrgDetails oneOrgDetails;
 	private Address oneOrgAddress;
@@ -371,6 +386,7 @@ public class AddOrganizationDialog extends TitleAreaDialog {
 	
 	@Override
 	protected void okPressed() {
+		
 		oneOrgDetails = new OrgDetails();
 		oneOrgAddress = new Address();
 		
@@ -388,7 +404,6 @@ public class AddOrganizationDialog extends TitleAreaDialog {
 		oneOrgAddress.setPostalCode(Integer.parseInt(zipCode.getText()));
 		//dummy for now need to add a combobox for states
 		oneOrgAddress.setCity("AP");
-		
 		super.okPressed();
 	}
 	
@@ -397,6 +412,12 @@ public class AddOrganizationDialog extends TitleAreaDialog {
 		existingRecord = true;
 		System.out.println("In dialogue"+selectedOrg.getOrgName());
 		orgName.setText(selectedOrg.getOrgName()); 
+		orgTIN.setText(selectedOrg.getTin());
+		orgAddress.setText(selectedOrg.getOrgAddress().getAddress());
+		orgCity.setText(selectedOrg.getOrgAddress().getCity());
+		zipCode.setText(Integer.toString(selectedOrg.getOrgAddress().getPostalCode()));
+		primaryContactName.setText(selectedOrg.getPrimaryPerson());
+		primaryContactNumber.setText(selectedOrg.getPrimaryNumber());
 		contacts = selectedOrg.getContacts();
 		personTable.setInput(contacts);
 	}
