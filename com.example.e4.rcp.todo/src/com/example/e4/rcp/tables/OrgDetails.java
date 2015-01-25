@@ -29,7 +29,8 @@ public class   OrgDetails implements DatabaseAccess{
 	private String orgName;
 	@OneToOne
 	private Address orgAddress;
-	private String busType;
+	@OneToMany(fetch = FetchType.EAGER)
+	private  Collection<ProductsTable> busType = new ArrayList<ProductsTable>();;
 	private String tin;
 	private String transactionType;
 	private String primaryPerson;
@@ -58,7 +59,7 @@ public class   OrgDetails implements DatabaseAccess{
 	/**
 	 * @return the busType
 	 */
-	public String getBusType() {
+	public Collection<ProductsTable> getBusType() {
 		return busType;
 	}
 	/**
@@ -136,7 +137,7 @@ public class   OrgDetails implements DatabaseAccess{
 	/**
 	 * @param busType the busType to set
 	 */
-	public void setBusType(String busType) {
+	public void setBusType(Collection<ProductsTable> busType) {
 		this.busType = busType;
 	}
 	/**

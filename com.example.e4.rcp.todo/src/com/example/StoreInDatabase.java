@@ -15,11 +15,14 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Expression;
 import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.Transformers;
 
 import com.example.e4.rcp.tables.Address;
 import com.example.e4.rcp.tables.ContactDetails;
 import com.example.e4.rcp.tables.DatabaseAccess;
 import com.example.e4.rcp.tables.OrgDetails;
+import com.example.e4.rcp.tables.ProductsTable;
 import com.example.e4.rcp.tables.UserDetails;
 import com.example.e4.rcp.tables.hibernateDB;
 
@@ -164,6 +167,45 @@ public class StoreInDatabase {
 		}finally{
 			session.close();
 		}
+	}
+	
+	public List<?> retrieveAllProducts(){
+		Configuration config = new Configuration();
+		config.configure();
+		StandardServiceRegistryBuilder ssrb =new StandardServiceRegistryBuilder().applySettings(config.getProperties());
+		sessionFactory = config.buildSessionFactory(ssrb.build());
+		Session session = sessionFactory.openSession();
+		List<?> orgsDetails = null;
+		Query query = session.createQuery("from ProductsTable");
+		
+		orgsDetails = query.list();
+		
+		return orgsDetails;
+	}
+	
+	public Object retrieveProductQuery(String parameter){
+		
+		Configuration config = new Configuration();
+		config.configure();
+		StandardServiceRegistryBuilder ssrb =new StandardServiceRegistryBuilder().applySettings(config.getProperties());
+		sessionFactory = config.buildSessionFactory(ssrb.build());
+		Session session = sessionFactory.openSession();
+		Object orgData = null;
+		try{
+			Criteria cr = session.createCriteria(ProductsTable.class);
+			cr.add(Restrictions.like("productName", parameter));
+//			cr.setProjection(Projections.property("productName"));						
+			if(cr.list().isEmpty()) 
+				orgData = null;
+			else
+				orgData = cr.list().get(0);
+		}catch(HibernateException e){
+			e.printStackTrace();
+		}
+		finally{
+			session.close();
+		}
+		return orgData;
 	}
 }
 
