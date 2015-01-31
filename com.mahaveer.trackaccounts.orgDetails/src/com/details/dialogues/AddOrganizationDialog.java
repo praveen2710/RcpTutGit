@@ -1,4 +1,4 @@
-package com.example.e4.rcp.dialogues;
+package com.details.dialogues;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -48,10 +48,11 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 
-import com.example.e4.rcp.tables.Address;
-import com.example.e4.rcp.tables.ContactDetails;
-import com.example.e4.rcp.tables.OrgDetails;
-import com.example.e4.rcp.tables.UserDetails;
+import com.details.tables.Address;
+import com.details.tables.ContactDetails;
+import com.details.tables.OrgDetails;
+
+
 //import com.exmaple.e4.tableFunctionality.edit.UserNameEditingSupport;
 
 public class AddOrganizationDialog extends TitleAreaDialog {
@@ -165,13 +166,13 @@ public class AddOrganizationDialog extends TitleAreaDialog {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				Shell shell=null;
-				AddPersonDialog dialog = new AddPersonDialog(shell);
-				dialog.open();
-				if(dialog.getPerson() != null){
-					System.out.println("Came out of dialog person");
-					contacts.add(dialog.getPerson());
-					personTable.refresh();
-				}
+//				AddPersonDialog dialog = new AddPersonDialog(shell);
+//				dialog.open();
+//				if(dialog.getPerson() != null){
+//					System.out.println("Came out of dialog person");
+//					contacts.add(dialog.getPerson());
+//					personTable.refresh();
+//				}
 			}
 			
 			
@@ -237,11 +238,11 @@ public class AddOrganizationDialog extends TitleAreaDialog {
 			public void widgetSelected(SelectionEvent e) {
 			 
 				Shell shell=null;
-				ProductListDialog pld = new ProductListDialog(shell);
-				pld.create();
-				if(pld.open() == Window.OK){
-					
-				}
+//				ProductListDialog pld = new ProductListDialog(shell);
+//				pld.create();
+//				if(pld.open() == Window.OK){
+//					
+//				}
 			}
 			
 		});

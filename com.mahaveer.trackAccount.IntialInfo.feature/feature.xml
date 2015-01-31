@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="com.example.e4.rcp.todo.feature"
+      id="com.mahaveer.trackAccount.IntialInfo.feature"
       label="Feature"
-      version="1.0.0.qualifier"
-      provider-name="EXAMPLE">
+      version="1.0.0.qualifier">
 
    <description url="http://www.example.com/description">
       [Enter Feature Description here.]
@@ -18,14 +17,7 @@
    </license>
 
    <plugin
-         id="com.example.e4.rcp.todo"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="com.boraTracker.e4.rcp.busItems"
+         id="com.mahaveer.trackaccounts.orgDetails"
          download-size="0"
          install-size="0"
          version="0.0.0"

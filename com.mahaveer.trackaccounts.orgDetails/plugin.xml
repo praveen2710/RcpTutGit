@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         id="track"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="org.eclipse.e4.ui.workbench.swt.E4Application"
+            name="trackaccount">
+         <property
+               name="appName"
+               value="trackaccount">
+         </property>
+      </product>
+   </extension>
+   <extension
+         id="Org"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="org.eclipse.e4.ui.workbench.swt.E4Application"
+            name="trackaccount">
+         <property
+               name="appName"
+               value="trackaccount">
+         </property>
+      </product>
+   </extension>
+   <extension
+         id="org"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="org.eclipse.e4.ui.workbench.swt.E4Application"
+            name="trackaccount">
+         <property
+               name="appName"
+               value="trackaccount">
+         </property>
+      </product>
+   </extension>
+
+</plugin>
