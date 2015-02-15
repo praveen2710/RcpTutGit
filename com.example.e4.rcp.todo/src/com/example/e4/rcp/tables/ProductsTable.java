@@ -14,6 +14,7 @@ public class ProductsTable implements DatabaseAccess{
 	private long productId;
 	private String productName;
 	private String productDescription;
+	private String parentProduct;
 	
 	@Override
 	public long getId() {
@@ -53,6 +54,14 @@ public class ProductsTable implements DatabaseAccess{
 	 */
 	public void setProductDescription(String productDescription) {
 		this.productDescription = productDescription;
+	}
+
+	public String getParentProduct() {
+		return parentProduct;
+	}
+
+	public void setParentProduct(String parentProduct) {
+		this.parentProduct = parentProduct;
 	}
 
 }

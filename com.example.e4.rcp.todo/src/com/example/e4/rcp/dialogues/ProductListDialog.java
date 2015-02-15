@@ -1,11 +1,11 @@
 package com.example.e4.rcp.dialogues;
 
+
+
 import org.eclipse.jface.action.Action;
-import org.eclipse.jface.action.IMenuListener;
-import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.dialogs.Dialog;
-import org.eclipse.jface.snippets.viewers.Snippet005TreeCustomMenu.MyModel;
+import org.eclipse.jface.viewers.ITreeSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
@@ -13,10 +13,11 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
-import org.eclipse.ui.menus.IMenuService;
 
 public class ProductListDialog extends Dialog{
 
@@ -49,6 +50,20 @@ public class ProductListDialog extends Dialog{
 	    layout.marginLeft = 10;
 	    container.setLayout(layout);
 	    
+	    MenuManager menuMgr = new MenuManager();
+	    menuMgr.setRemoveAllWhenShown(true);
+	    menuMgr.add(new Action("New Thing") {
+
+			/* (non-Javadoc)
+			 * @see org.eclipse.jface.action.Action#run()
+			 */
+			@Override
+			public void run() {
+				System.out.println("came in options");
+			}
+		});
+	    
+	    container.setMenu(menuMgr.createContextMenu(container));
 	    productListTreeCheckBox(parent);
 		return super.createDialogArea(parent);
 	}
@@ -60,15 +75,31 @@ public class ProductListDialog extends Dialog{
 		    check.setLayoutData(data);
 		    fillTree(check);
 		  
-		    MenuManager menuManager = new MenuManager();
-		    Menu menu = menuManager.createContextMenu(composite.getTable());
-		    // set the menu on the SWT widget
-		    viewer.getTable().setMenu(menu);
+		    check.addListener (SWT.Selection, new Listener () {
+				@Override
+				public void handleEvent (Event event) {
+					TreeItem item = (TreeItem) event.item;
+					System.out.println(item.getParentItem()+" "+item.getItemCount());
+					String string = event.detail == SWT.CHECK ? "Checked" : "Selected";
+					System.out.println (event.item + " " + string);
+				}
+			});
+		    
+		    fillDatabase(check);
+	}
+
+	private void fillDatabase(Tree tree) {
+		System.out.println("No Of Root elements:"+tree.getItemCount());
+		System.out.println("Parent of Root elements:"+tree.getParentItem());
+		for(int i=0;i<tree.getItemCount();i++){
+			TreeItem item = tree.getItem(i);
+			System.out.println("No of elements in "+i+" "+item.getItemCount());
+			System.out.println("Parent of "+i+" elements:"+item.getText());
+		}
+		
 	}
 
 	private void fillTree(Tree tree) {
-		
-		MenuManager contextMenu=new MenuManager("#PopUp");
 		
 		 // Turn off drawing to avoid flicker
 	    tree.setRedraw(false);
@@ -90,6 +121,8 @@ public class ProductListDialog extends Dialog{
 	        }
 	      }
 	    }
+	    
+	
 	    // Turn drawing back on!
 	    tree.setRedraw(true);
 	}

@@ -44,6 +44,8 @@ public static void main (String [] args) {
 		}
 	}
 	
+	
+	
 	Transfer[] types = new Transfer[] {TextTransfer.getInstance()};
 	int operations = DND.DROP_MOVE | DND.DROP_COPY | DND.DROP_LINK;
 	
